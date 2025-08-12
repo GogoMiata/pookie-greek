@@ -1,384 +1,593 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pookie's Greek — 30-day Mini-Course</title>
-  <meta name="description" content="30-day conversational Greek course for Jade (Pookie). Installable on iPhone (Add to Home Screen)." />
-  <!-- iOS home-screen icon (put apple-touch-icon.png in same folder) -->
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-title" content="Pookie's Greek">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-  <style>
-    :root{--bg:#071428;--card:rgba(255,255,255,0.03);--accent:#f59e0b;--text:#e6eef8;--muted:#9ca3af}
-    *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    body{margin:0;background:linear-gradient(180deg,#02203b,#071428);color:var(--text);-webkit-font-smoothing:antialiased}
-    header{padding:18px;text-align:center}
-    h1{margin:0;font-size:20px}
-    .container{max-width:920px;margin:14px auto;padding:12px}
-    .card{background:var(--card);border-radius:12px;padding:12px;margin-bottom:12px}
-    .row{display:flex;gap:8px;align-items:center}
-    button, .btn {background:var(--accent);border:none;padding:10px 12px;border-radius:10px;color:#081129;font-weight:600;cursor:pointer}
-    .lesson-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
-    .lesson-item{padding:12px;background:rgba(255,255,255,0.02);border-radius:10px;cursor:pointer}
-    .vocab-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .vocab{padding:8px;background:rgba(255,255,255,0.01);border-radius:8px;display:flex;align-items:center}
-    .play{background:#072a2a;color:#b6f7f7;padding:8px;border-radius:8px;margin-left:auto;cursor:pointer}
-    footer{padding:10px;text-align:center;color:var(--muted);font-size:13px}
-    .small{font-size:13px;color:var(--muted)}
-    input[type="text"]{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);width:100%;background:transparent;color:var(--text)}
-    .dialog-card{background:rgba(255,255,255,0.02);padding:8px;border-radius:8px;margin-top:8px}
-    .nav-row{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:12px}
-    a.link{color:var(--accent);text-decoration:none;font-weight:600}
-    .hidden{display:none}
-    @media (max-width:420px){.vocab-list{grid-template-columns:1fr}}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pookie's Greek ❤️ — 30 days</title>
+<meta name="description" content="30-day conversational Greek mini-course for Jade (Pookie)."/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pookie's Greek">
+<style>
+:root{--bg:#071428;--card:rgba(255,255,255,0.03);--accent:#f59e0b;--text:#e9f3fb;--muted:#b8c3cf}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+body{margin:0;background:linear-gradient(180deg,#021026,#071428);color:var(--text);-webkit-font-smoothing:antialiased}
+header{padding:18px;text-align:center}
+h1{margin:0;font-size:20px}
+.container{max-width:920px;margin:12px auto;padding:12px}
+.card{background:var(--card);border-radius:12px;padding:12px;margin-bottom:12px}
+.row{display:flex;gap:8px;align-items:center}
+.btn{background:var(--accent);border:none;padding:10px 12px;border-radius:10px;color:#081129;font-weight:700;cursor:pointer}
+.lesson-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.lesson-item{padding:12px;background:rgba(255,255,255,0.02);border-radius:10px;cursor:pointer}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:8px}
+.vocab{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;display:flex;gap:8px;align-items:center}
+.word{flex:1}
+.play{background:#083a3a;color:#bff0ef;padding:8px;border-radius:8px;cursor:pointer}
+.small{font-size:13px;color:var(--muted)}
+.footer{padding:10px;text-align:center;color:var(--muted);font-size:13px}
+.svg-small{width:64px;height:64px;flex:0 0 64px}
+.modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center}
+.modal .card{max-width:480px}
+@media (max-width:420px){.vocab-grid{grid-template-columns:1fr}.svg-small{width:56px;height:56px}}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Pookie's Greek — 30-day Mini-Course</h1>
-    <div class="small">20 minutes/day — tap a day to begin. Use Safari on iPhone to Add to Home Screen.</div>
-  </header>
+<header>
+  <h1>Pookie’s Greek ❤️ — 30-day Mini-Course</h1>
+  <div class="small">20 min/day — Tap a lesson to begin. Add to Home Screen on iPhone for app-like experience.</div>
+</header>
 
-  <main class="container">
-    <div id="app"></div>
-    <div id="lessonCard" class="card hidden"></div>
-  </main>
+<main class="container" id="appRoot">
+  <div id="home" class="card">
+    <div class="row">
+      <div style="flex:1">
+        <strong class="small">Ready to surprise Jade?</strong>
+        <div style="font-size:18px;font-weight:700;margin-top:6px">Pookie's Greek — 30 days</div>
+        <div class="small" style="margin-top:6px">Conversational & travel vocabulary, with stick-figure visuals.</div>
+      </div>
+      <div>
+        <button id="startBtn" class="btn">Start Day 1</button>
+      </div>
+    </div>
+  </div>
 
-  <footer>Made with ❤️ — Happy Anniversary, Jade & Pookie.</footer>
+  <div id="days" class="card">
+    <div class="small">30-Day Plan — Tap a day to open</div>
+    <div id="dayList" class="lesson-list" style="margin-top:10px"></div>
+  </div>
+
+  <div id="lessonPanel" class="card" style="display:none"></div>
+</main>
+
+<div class="footer">Made with ❤️ — Happy Anniversary, Pookie Mou.</div>
+
+<!-- Modal for examples -->
+<div id="modal" class="modal" style="display:none">
+  <div class="card">
+    <div id="modalContent"></div>
+    <div style="text-align:right;margin-top:10px"><button id="modalClose" class="btn">Close</button></div>
+  </div>
+</div>
 
 <script>
-/* ===== FULL 30-DAY LESSON DATA =====
-   Each lesson: { day, title, items: [ {gr, tr, en}... ], dialog: [ {a,b}, ... ] }
-*/
+/* --------------------
+   Content: 30 days packed
+   Each item: {gr, tr, en, action?: key for svg}
+   -------------------- */
 const lessons = [
-  {day:1,title:"Greetings",items:[
-    {gr:"Γειά σου",tr:"Geiá sou",en:"Hello (informal)"},
-    {gr:"Γειά σας",tr:"Geiá sas",en:"Hello (formal/plural)"},
-    {gr:"Καλημέρα",tr:"Kaliméra",en:"Good morning"},
-    {gr:"Καλησπέρα",tr:"Kalispera",en:"Good evening"},
-    {gr:"Καληνύχτα",tr:"Kaliníkhta",en:"Good night"}
-  ],dialog:[
-    {a:"Γειά σου!",b:"Γειά σου! Πώς είσαι;"}
-  ]},
-  {day:2,title:"Politeness",items:[
-    {gr:"Ευχαριστώ",tr:"Efcharistó",en:"Thank you"},
-    {gr:"Παρακαλώ",tr:"Parakaló",en:"Please / You're welcome"},
-    {gr:"Συγγνώμη",tr:"Signómi",en:"Sorry / Excuse me"}
-  ],dialog:[{a:"Ευχαριστώ!",b:"Παρακαλώ!"}]},
-  {day:3,title:"Names",items:[
-    {gr:"Με λένε...",tr:"Me léne...",en:"My name is..."},
-    {gr:"Πώς σε λένε;",tr:"Pós se léne?",en:"What's your name?"},
-    {gr:"Χάρηκα",tr:"Chárika",en:"Nice to meet you"}
-  ],dialog:[{a:"Με λένε Μαρία.",b:"Χάρηκα, εγώ είμαι η Άννα."}]},
-  {day:4,title:"How are you?",items:[
-    {gr:"Τι κάνεις;",tr:"Ti káneis?",en:"How are you?"},
-    {gr:"Καλά",tr:"Kalá",en:"Good"},
-    {gr:"Έτσι κι έτσι",tr:"Étsi ki étsi",en:"So-so"},
-    {gr:"Κακός/Κακή",tr:"Kakós/Kakí",en:"Bad (m/f)"}
-  ],dialog:[{a:"Τι κάνεις;",b:"Καλά, ευχαριστώ."}]},
-  {day:5,title:"Where are you from?",items:[
-    {gr:"Από πού είσαι;",tr:"Apó poú eísai?",en:"Where are you from?"},
-    {gr:"Είμαι από...",tr:"Eímai apó...",en:"I am from..."},
-    {gr:"Ελλάδα",tr:"Elláda",en:"Greece"},
-    {gr:"Αμερική",tr:"Amerikí",en:"America / USA"}
-  ],dialog:[{a:"Από πού είσαι;",b:"Είμαι από την Αμερική."}]},
-  {day:6,title:"Family basics",items:[
-    {gr:"Μαμά",tr:"Mamá",en:"Mom"},
-    {gr:"Μπαμπάς",tr:"Bampás",en:"Dad"},
-    {gr:"Αδερφός",tr:"Aderfós",en:"Brother"},
-    {gr:"Αδερφή",tr:"Aderfí",en:"Sister"}
-  ],dialog:[{a:"Ποια είναι αυτή;",b:"Η αδερφή μου."}]},
-  {day:7,title:"Week 1 Review",items:[],dialog:[]},
+/* Week 1 — Greetings & intros */
+{day:1,title:'Greetings',items:[
+  {gr:'Γειά σου',tr:'Geiá sou',en:'Hello (informal)',action:'wave'},
+  {gr:'Γειά σας',tr:'Geiá sas',en:'Hello (formal/plural)',action:'wave'},
+  {gr:'Καλημέρα',tr:'Kaliméra',en:'Good morning',action:'sun'},
+  {gr:'Καλησπέρα',tr:'Kalispera',en:'Good evening',action:'moon'},
+  {gr:'Καληνύχτα',tr:'Kaliníkhta',en:'Good night',action:'sleep'},
+  {gr:'Χάρηκα',tr:'Chárika',en:'Nice to meet you',action:'smile'},
+  {gr:'Πώς είσαι;',tr:'Pós eísai?',en:'How are you?',action:'ask'},
+  {gr:'Καλά',tr:'Kalá',en:'Good',action:'thumbs'},
+  {gr:'Έτσι κι έτσι',tr:'Étsi ki étsi',en:'So-so',action:'shrug'},
+  {gr:'Συγγνώμη',tr:'Signómi',en:'Sorry / Excuse me',action:'sorry'}
+]},
+{day:2,title:'Names & intro phrases',items:[
+  {gr:'Με λένε...',tr:'Me léne...',en:'My name is...',action:'name'},
+  {gr:'Πώς σε λένε;',tr:'Pós se léne?',en:'What\'s your name?',action:'ask'},
+  {gr:'Από πού είσαι;',tr:'Apó poú eísai?',en:'Where are you from?',action:'map'},
+  {gr:'Είμαι από...',tr:'Eímai apó...',en:'I am from...',action:'map'},
+  {gr:'Μιλάτε αγγλικά;',tr:'Miláte angliká?',en:'Do you speak English?',action:'speak'},
+  {gr:'Ναι',tr:'Nai',en:'Yes',action:'thumbs'},
+  {gr:'Όχι',tr:'Ochi',en:'No',action:'cross'},
+  {gr:'Λίγο',tr:'Lígo',en:'A little',action:'small'},
+  {gr:'Καταλαβαίνω',tr:'Katalavaíno',en:'I understand',action:'nod'},
+  {gr:'Δεν καταλαβαίνω',tr:'Den katalavaíno',en:'I don\'t understand',action:'confused'}
+]},
+{day:3,title:'Politeness & basics',items:[
+  {gr:'Παρακαλώ',tr:'Parakaló',en:'Please / You\'re welcome',action:'please'},
+  {gr:'Ευχαριστώ',tr:'Efcharistó',en:'Thank you',action:'thanks'},
+  {gr:'Παρακαλώ πολύ',tr:'Parakaló polý',en:'You\'re very welcome',action:'thanks'},
+  {gr:'Σας παρακαλώ',tr:'Sas parakaló',en:'Please (formal)',action:'please'},
+  {gr:'Συγγνώμη',tr:'Signómi',en:'Excuse me / Sorry',action:'sorry'},
+  {gr:'Τι ώρα είναι;',tr:'Ti óra eínai?',en:'What time is it?',action:'clock'},
+  {gr:'Πολύ καλά',tr:'Polý kalá',en:'Very good',action:'thumbs'},
+  {gr:'Βοήθεια!',tr:'Voítheia!',en:'Help!',action:'help'},
+  {gr:'Πολύ ωραίο',tr:'Polý oraío',en:'Very nice',action:'smile'},
+  {gr:'Μπορείτε να με βοηθήσετε;',tr:'Boríte na me voithísete?',en:'Can you help me?',action:'help'}
+]},
+{day:4,title:'Family & people',items:[
+  {gr:'Μαμά',tr:'Mamá',en:'Mom',action:'mom'},
+  {gr:'Μπαμπάς',tr:'Bampás',en:'Dad',action:'dad'},
+  {gr:'Αδερφός',tr:'Aderfós',en:'Brother',action:'brother'},
+  {gr:'Αδερφή',tr:'Aderfí',en:'Sister',action:'sister'},
+  {gr:'Σύζυγος',tr:'Sýzygos',en:'Spouse',action:'couple'},
+  {gr:'Φίλος',tr:'Fílos',en:'Friend',action:'friend'},
+  {gr:'Παιδί',tr:'Paidí',en:'Child',action:'child'},
+  {gr:'Γλυκό',tr:'Glykó',en:'Sweet / dessert',action:'dessert'},
+  {gr:'Φαγητό',tr:'Faghtó',en:'Food',action:'eat'},
+  {gr:'Σπίτι',tr:'Spíti',en:'Home / House',action:'home'}
+]},
+{day:5,title:'Numbers & time',items:[
+  {gr:'Ένα',tr:'Éna',en:'One',action:'1'},{gr:'Δύο',tr:'Dýo',en:'Two',action:'2'},
+  {gr:'Τρία',tr:'Tría',en:'Three',action:'3'},{gr:'Τέσσερα',tr:'Téssera',en:'Four',action:'4'},
+  {gr:'Πέντε',tr:'Pénte',en:'Five',action:'5'},{gr:'Δέκα',tr:'Déka',en:'Ten',action:'10'},
+  {gr:'Σήμερα',tr:'Símera',en:'Today',action:'calendar'},{gr:'Αύριο',tr:'Ávrio',en:'Tomorrow',action:'tomorrow'},
+  {gr:'Χθες',tr:'Chthes',en:'Yesterday',action:'yesterday'},{gr:'Τώρα',tr:'Tóra',en:'Now',action:'clock'}
+]},
+{day:6,title:'Food & dining',items:[
+  {gr:'Θα ήθελα...',tr:'Tha íthela...',en:'I would like...',action:'order'},
+  {gr:'Λογαριασμό, παρακαλώ',tr:'Logariasmó, parakaló',en:'The bill, please',action:'bill'},
+  {gr:'Νερό',tr:'Neró',en:'Water',action:'drink'},{gr:'Καφές',tr:'Kafés',en:'Coffee',action:'drink'},
+  {gr:'Κρασί',tr:'Krasí',en:'Wine',action:'drink'},{gr:'Ψωμί',tr:'Psomí',en:'Bread',action:'eat'},
+  {gr:'Μπριζόλα',tr:'Brizóla',en:'Steak',action:'eat'},{gr:'Σαλάτα',tr:'Saláta',en:'Salad',action:'eat'},
+  {gr:'Ποτήρι',tr:'Potíri',en:'Glass',action:'cup'},{gr:'Κουτάλι',tr:'Koutáli',en:'Spoon',action:'cutlery'}
+]},
+{day:7,title:'Week 1 Review',items:[
+  {gr:'Επανάληψη εβδομάδας 1',tr:'Epanálipsi evdomádas 1',en:'Week 1 review',action:'review'}
+]},
 
-  {day:8,title:"Food basics",items:[
-    {gr:"Νερό",tr:"Neró",en:"Water"},
-    {gr:"Ψωμί",tr:"Psomí",en:"Bread"},
-    {gr:"Καφές",tr:"Kafés",en:"Coffee"},
-    {gr:"Τσάι",tr:"Tsái",en:"Tea"},
-    {gr:"Κρασί",tr:"Krasí",en:"Wine"}
-  ],dialog:[{a:"Θα ήθελα έναν καφέ, παρακαλώ.",b:"Σας φέρνω έναν καφέ."}]},
-  {day:9,title:"Ordering politely",items:[
-    {gr:"Θα ήθελα...",tr:"Tha íthela...",en:"I would like..."},
-    {gr:"Μπορώ να έχω...;",tr:"Boró na ého...?",en:"Can I have...?"},
-    {gr:"Λογαριασμό, παρακαλώ",tr:"Logariasmó, parakaló",en:"The bill, please"}
-  ],dialog:[{a:"Τι θα θέλατε;",b:"Θα ήθελα ένα σάντουιτς."}]},
-  {day:10,title:"Numbers 1–10",items:[
-    {gr:"Ένα",tr:"Éna",en:"1"},{gr:"Δύο",tr:"Dýo",en:"2"},{gr:"Τρία",tr:"Tría",en:"3"},
-    {gr:"Τέσσερα",tr:"Téssera",en:"4"},{gr:"Πέντε",tr:"Pénte",en:"5"},{gr:"Έξι",tr:"Éxi",en:"6"},
-    {gr:"Επτά",tr:"Eptá",en:"7"},{gr:"Οκτώ",tr:"Októ",en:"8"},{gr:"Εννιά",tr:"Enniá",en:"9"},{gr:"Δέκα",tr:"Déka",en:"10"}
-  ],dialog:[{a:"Θα ήθελα δύο καφέδες.",b:"Ορίστε δύο καφέδες."}]},
-  {day:11,title:"Shopping phrases",items:[
-    {gr:"Πόσο κοστίζει;",tr:"Póso kostízei?",en:"How much is it?"},
-    {gr:"Ακριβό",tr:"Akrivó",en:"Expensive"},
-    {gr:"Φτηνό",tr:"Ftínio",en:"Cheap"}
-  ],dialog:[{a:"Πόσο κοστίζει;",b:"Κοστίζει δέκα ευρώ."}]},
-  {day:12,title:"Directions 1",items:[
-    {gr:"Πού είναι...;",tr:"Poú eínai...?",en:"Where is...?"},
-    {gr:"Δεξιά",tr:"Dexiá",en:"Right"},
-    {gr:"Αριστερά",tr:"Aristerá",en:"Left"},
-    {gr:"Ευθεία",tr:"Eutheía",en:"Straight"}
-  ],dialog:[{a:"Πού είναι η τουαλέτα;",b:"Εκεί δεξιά."}]},
-  {day:13,title:"Directions 2",items:[
-    {gr:"Κοντά",tr:"Kontá",en:"Near"},{gr:"Μακριά",tr:"Makriá",en:"Far"},
-    {gr:"Εδώ",tr:"Edó",en:"Here"},{gr:"Εκεί",tr:"Ekeí",en:"There"}
-  ],dialog:[{a:"Είναι κοντά;",b:"Ναι, πολύ κοντά."}]},
-  {day:14,title:"Week 2 Review",items:[],dialog:[]},
+/* Week 2 — Shopping, transport, directions */
+{day:8,title:'Shopping basics',items:[
+  {gr:'Πόσο κοστίζει;',tr:'Póso kostízei?',en:'How much does it cost?',action:'money'},
+  {gr:'Ακριβό',tr:'Akrivó',en:'Expensive',action:'expensive'},{gr:'Φτηνό',tr:'Ftínio',en:'Cheap',action:'cheap'},
+  {gr:'Μέγεθος',tr:'Mégehos',en:'Size',action:'measure'},{gr:'Δοκιμάζω',tr:'Dokimázo',en:'I try on',action:'try'},
+  {gr:'Αυτό μου αρέσει',tr:'Aftó mou arései',en:'I like this',action:'like'},
+  {gr:'Πόσο είναι;',tr:'Póso eínai?',en:'How much is it?',action:'money'},
+  {gr:'Πιστωτική κάρτα',tr:'Pistotikí kárta',en:'Credit card',action:'card'},
+  {gr:'Μετρητά',tr:'Metrhtá',en:'Cash',action:'cash'},{gr:'Αλλαγή',tr:'Allagí',en:'Exchange/Change',action:'change'}
+]},
+{day:9,title:'Directions & getting around',items:[
+  {gr:'Πού είναι...;',tr:'Poú eínai...?',en:'Where is...?',action:'map'},
+  {gr:'Δεξιά',tr:'Dexiá',en:'Right',action:'right'},{gr:'Αριστερά',tr:'Aristerá',en:'Left',action:'left'},
+  {gr:'Ευθεία',tr:'Eutheía',en:'Straight',action:'straight'},{gr:'Σταθμός',tr:'Stathmós',en:'Station',action:'station'},
+  {gr:'Αεροδρόμιο',tr:'Aerodrómio',en:'Airport',action:'plane'},{gr:'Λεωφορείο',tr:'Leoforeío',en:'Bus',action:'bus'},
+  {gr:'Ταξί',tr:'Taxí',en:'Taxi',action:'taxi'},{gr:'Στάση',tr:'Stási',en:'Stop',action:'stop'}
+]},
+{day:10,title:'Travel phrases',items:[
+  {gr:'Ένα εισιτήριο, παρακαλώ',tr:'Éna eisitírio, parakaló',en:'One ticket, please',action:'ticket'},
+  {gr:'Πού είναι η αποβάθρα;',tr:'Poú eínai i apováthra?',en:'Where is the platform?',action:'platform'},
+  {gr:'Πόσο χρόνο χρειάζεται;',tr:'Póso chróno chreiazetai?',en:'How long does it take?',action:'time'},
+  {gr:'Χρειάζομαι βοήθεια',tr:'Chreiazómai voítheia',en:'I need help',action:'help'},
+  {gr:'Έχετε χάρτη;',tr:'Échete chárti?',en:'Do you have a map?',action:'map'},
+  {gr:'Πού είναι το ξενοδοχείο;',tr:'Poú eínai to xenodocheío?',en:'Where is the hotel?',action:'hotel'},
+  {gr:'Έχω κράτηση',tr:'Écho kratísi',en:'I have a reservation',action:'reservation'},
+  {gr:'Χρειάζομαι ταξί',tr:'Chreiazómai taxí',en:'I need a taxi',action:'taxi'},
+  {gr:'Πόσο κοστίζει το εισιτήριο για…;',tr:'Póso kostízei to eisitírio gia…?',en:'How much is the ticket to…?',action:'ticket'},
+  {gr:'Πού μπορώ να αγοράσω…;',tr:'Poú boró na agoráso…?',en:'Where can I buy…?',action:'shop'}
+]},
+{day:11,title:'At the hotel',items:[
+  {gr:'Κρατήσεις',tr:'Kratíseis',en:'Reservations',action:'reservation'},
+  {gr:'Έχετε δωμάτια;',tr:'Échete domátia?',en:'Do you have rooms?',action:'hotel'},
+  {gr:'Θέλω ένα δωμάτιο',tr:'Thélo éna domátio',en:'I want a room',action:'hotel'},
+  {gr:'Με πρωινό',tr:'Me proinó',en:'With breakfast',action:'breakfast'},
+  {gr:'Πού είναι το ασανσέρ;',tr:'Poú eínai to asansér?',en:'Where is the elevator?',action:'elevator'},
+  {gr:'Κλειδιά',tr:'Kleidía',en:'Keys',action:'key'},
+  {gr:'Ώρα check-out',tr:'Óra check-out',en:'Check-out time',action:'clock'},
+  {gr:'Υπηρεσία δωματίου',tr:'Ypiresía domatíou',en:'Room service',action:'roomservice'},
+  {gr:'Πληρωμή',tr:'Pliromí',en:'Payment',action:'pay'},
+  {gr:'Ασφάλεια',tr:'Asfáleia',en:'Security/safety',action:'shield'}
+]},
+{day:12,title:'Week 2 Review',items:[
+  {gr:'Επανάληψη εβδομάδας 2',tr:'Epanálipsi evdomádas 2',en:'Week 2 review',action:'review'}
+]},
 
-  {day:15,title:"Small talk: weather",items:[
-    {gr:"Ο καιρός",tr:"O kairós",en:"The weather"},
-    {gr:"Είναι ζεστό",tr:"Eínai zestó",en:"It's hot"},
-    {gr:"Είναι κρύο",tr:"Eínai krýo",en:"It's cold"}
-  ],dialog:[{a:"Τι καιρό έχουμε;",b:"Έχει ηλιοφάνεια."}]},
-  {day:16,title:"Feelings",items:[
-    {gr:"Χαρούμενη",tr:"Charoúmeni",en:"Happy (f)"},
-    {gr:"Κουρασμένη",tr:"Kourasméni",en:"Tired (f)"},
-    {gr:"Πεινασμένη",tr:"Peinasméni",en:"Hungry (f)"}
-  ],dialog:[{a:"Πώς νιώθεις;",b:"Είμαι κουρασμένη."}]},
-  {day:17,title:"Time basics",items:[
-    {gr:"Τι ώρα είναι;",tr:"Ti óra eínai?",en:"What time is it?"},
-    {gr:"Πρωί",tr:"Proí",en:"Morning"},
-    {gr:"Μεσημέρι",tr:"Mesiméri",en:"Noon"},
-    {gr:"Βράδυ",tr:"Vrády",en:"Evening"}
-  ],dialog:[{a:"Τι ώρα είναι;",b:"Είναι δύο το μεσημέρι."}]},
-  {day:18,title:"Visiting someone",items:[
-    {gr:"Καλώς ήρθες",tr:"Kalós írthes",en:"Welcome"},
-    {gr:"Περάστε",tr:"Peráste",en:"Come in"},
-    {gr:"Σπίτι",tr:"Spíti",en:"House"}
-  ],dialog:[{a:"Καλώς ήρθατε!",b:"Σας ευχαριστούμε που ήρθατε."}]},
-  {day:19,title:"Compliments",items:[
-    {gr:"Ωραίο",tr:"Oraío",en:"Nice"},
-    {gr:"Μου αρέσει",tr:"Mou arései",en:"I like it"},
-    {gr:"Πολύ όμορφο",tr:"Polý ómorfo",en:"Very beautiful"}
-  ],dialog:[{a:"Μου αρέσει το φόρεμά σου.",b:"Ευχαριστώ!"}]},
-  {day:20,title:"Plans",items:[
-    {gr:"Τι κάνεις αύριο;",tr:"Ti káneis ávrio?",en:"What are you doing tomorrow?"},
-    {gr:"Θα πάω",tr:"Tha páo",en:"I will go"},
-    {gr:"Στην αγορά",tr:"Stin agorá",en:"To the market"}
-  ],dialog:[{a:"Τι κάνεις αύριο;",b:"Θα πάω στο παζάρι."}]},
-  {day:21,title:"Week 3 Review",items:[],dialog:[]},
+/* Week 3 — social, small talk, health */
+{day:13,title:'Small talk & weather',items:[
+  {gr:'Τι καιρό κάνει;',tr:'Ti kairó kánei?',en:'How is the weather?',action:'weather'},
+  {gr:'Είναι ζεστό',tr:'Eínai zestó',en:'It\'s hot',action:'sun'},
+  {gr:'Είναι κρύο',tr:'Eínai krýo',en:'It\'s cold',action:'snow'},
+  {gr:'Βρέχει',tr:'Vrékhei',en:'It\'s raining',action:'rain'},
+  {gr:'Καλός καιρός',tr:'Kalós kairós',en:'Nice weather',action:'sun'},
+  {gr:'Θα πέσει η θερμοκρασία',tr:'Tha pései i thermokrasía',en:'Temperature will drop',action:'weather'},
+  {gr:'Έχει αέρα',tr:'Échei aérá',en:'It\'s windy',action:'wind'},
+  {gr:'Φοβάμαι τη βροχή',tr:'Fovámai ti vrochi',en:'I\'m afraid of rain',action:'umbrella'},
+  {gr:'Πάμε μία βόλτα',tr:'Páme mía vóltá',en:'Let\'s go for a walk',action:'walk'},
+  {gr:'Έχει ήλιο',tr:'Échei ílio',en:'It\'s sunny',action:'sun'}
+]},
+{day:14,title:'Health & emergencies',items:[
+  {gr:'Πού είναι το νοσοκομείο;',tr:'Poú eínai to nosokomeío?',en:'Where is the hospital?',action:'hospital'},
+  {gr:'Χρειάζομαι γιατρό',tr:'Chreiazómai giatró',en:'I need a doctor',action:'doctor'},
+  {gr:'Είμαι άρρωστος/η',tr:'Eímai árrhostos/arrhosti',en:'I am sick',action:'sick'},
+  {gr:'Πονάει εδώ',tr:'Ponáei edó',en:'It hurts here',action:'hurt'},
+  {gr:'Κλήση για ασθενοφόρο',tr:'Klísi gia asthenofóro',en:'Call an ambulance',action:'ambulance'},
+  {gr:'Φάρμακα',tr:'Fármaka',en:'Medicine',action:'pill'},
+  {gr:'Αλλεργία',tr:'Allergía',en:'Allergy',action:'sneeze'},
+  {gr:'Έχετε παυσίπονα;',tr:'Échete pausípóna?',en:'Do you have painkillers?',action:'pill'},
+  {gr:'Τραύμα',tr:'Trávma',en:'Injury',action:'hurt'},
+  {gr:'Επικοινωνήστε με την πρεσβεία',tr:'Epikoinoníste me tin presvía',en:'Contact the embassy',action:'embassy'}
+]},
+{day:15,title:'Feelings & states',items:[
+  {gr:'Χαρούμενη',tr:'Charoúmeni',en:'Happy (f)',action:'smile'},
+  {gr:'Λυπημένη',tr:'Lypimení',en:'Sad (f)',action:'sad'},
+  {gr:'Κουρασμένη',tr:'Kourasméni',en:'Tired (f)',action:'sleep'},
+  {gr:'Πεινασμένη',tr:'Peinasméni',en:'Hungry (f)',action:'eat'},
+  {gr:'Διψασμένη',tr:'Dipsasméni',en:'Thirsty (f)',action:'drink'},
+  {gr:'Ανησυχώ',tr:'Anisichó',en:'I worry',action:'worry'},
+  {gr:'Ενθουσιασμένη',tr:'Enthousiasméni',en:'Excited (f)',action:'jump'},
+  {gr:'Νιώθω καλά',tr:'Niótho kalá',en:'I feel well',action:'thumbs'},
+  {gr:'Έχω άγχος',tr:'Échoh ánghos',en:'I have anxiety',action:'worry'},
+  {gr:'Ευτυχισμένη',tr:'Eftychisméni',en:'Joyful (f)',action:'smile'}
+]},
+{day:16,title:'Week 3 Review',items:[
+  {gr:'Επανάληψη εβδομάδας 3',tr:'Epanálipsi evdomádas 3',en:'Week 3 review',action:'review'}
+]},
 
-  {day:22,title:"Meals with family",items:[
-    {gr:"Φαγητό",tr:"Faghtó",en:"Food"},
-    {gr:"Δείπνο",tr:"Deípno",en:"Dinner"},
-    {gr:"Γλυκό",tr:"Glykó",en:"Dessert"}
-  ],dialog:[{a:"Θέλεις λίγο ψωμί;",b:"Ναι, παρακαλώ."}]},
-  {day:23,title:"Asking for help",items:[
-    {gr:"Μπορείς να με βοηθήσεις;",tr:"Borís na me voithíseis?",en:"Can you help me?"},
-    {gr:"Φυσικά",tr:"Fysiká",en:"Of course"}
-  ],dialog:[{a:"Μπορείς να με βοηθήσεις με αυτό;",b:"Φυσικά, πες μου."}]},
-  {day:24,title:"Describing things",items:[
-    {gr:"Μεγάλο",tr:"Megálo",en:"Big"},
-    {gr:"Μικρό",tr:"Mikrό",en:"Small"},
-    {gr:"Καινούριο",tr:"Kainoúrio",en:"New"}
-  ],dialog:[{a:"Το σπίτι είναι μεγάλο.",b:"Ναι, έχει τρεις κρεβατοκάμαρες."}]},
-  {day:25,title:"People & relationships",items:[
-    {gr:"Φίλος",tr:"Fílos",en:"Friend"},
-    {gr:"Γείτονας",tr:"Geítonas",en:"Neighbor"},
-    {gr:"Συγγενής",tr:"Syggenís",en:"Relative"}
-  ],dialog:[{a:"Αυτός είναι ο φίλος μου.",b:"Χαίρω πολύ."}]},
-  {day:26,title:"Talking about the past",items:[
-    {gr:"Χθες",tr:"Chthes",en:"Yesterday"},
-    {gr:"Προχθές",tr:"Prochthes",en:"Day before yesterday"},
-    {gr:"Ήμουν",tr:"Ímoun",en:"I was"}
-  ],dialog:[{a:"Τι έκανες χθες;",b:"Ήμουν με την οικογένεια."}]},
-  {day:27,title:"Future intentions",items:[
-    {gr:"Αύριο",tr:"Ávrio",en:"Tomorrow"},
-    {gr:"Θα...",tr:"Tha...",en:"Will..."},
-    {gr:"Θέλω να...",tr:"Thélo na...",en:"I want to..."}
-  ],dialog:[{a:"Τι θα κάνεις αύριο;",b:"Θα εργαστώ και μετά θα πάω σπίτι."}]},
-  {day:28,title:"Special occasions",items:[
-    {gr:"Γενέθλια",tr:"Genéthlia",en:"Birthday"},
-    {gr:"Γιορτή",tr:"Giortí",en:"Name day/celebration"},
-    {gr:"Καλή χρονιά",tr:"Kalí chroniá",en:"Happy new year"}
-  ],dialog:[{a:"Χρόνια πολλά!",b:"Ευχαριστώ πολύ!"}]},
-  {day:29,title:"Full review",items:[],dialog:[]},
-  {day:30,title:"Final recap & celebration",items:[],dialog:[]}
-];
+/* Week 4 — social phrases, household, emotions, recap */
+{day:17,title:'Home & household',items:[
+  {gr:'Πού είναι η κουζίνα;',tr:'Poú eínai i kouzína?',en:'Where is the kitchen?',action:'kitchen'},
+  {gr:'Μπορώ να χρησιμοποιήσω το μπάνιο;',tr:'Boró na chrisimopoiíso to bánio?',en:'Can I use the bathroom?',action:'toilet'},
+  {gr:'Καθαρίζω',tr:'Katharízo',en:'I clean',action:'clean'},
+  {gr:'Πλύνω τα πιάτα',tr:'Plýno ta piáta',en:'I wash the dishes',action:'dish'},
+  {gr:'Πλυντήριο',tr:'Plyntírio',en:'Washing machine',action:'washing'},
+  {gr:'Ηλεκτρικό ρεύμα',tr:'Ilektrikó révma',en:'Electricity',action:'plug'},
+  {gr:'Θέρμανση',tr:'Thermansi',en:'Heating',action:'heater'},
+  {gr:'Διεύθυνση',tr:'Diefthýnsi',en:'Address',action:'map'},
+  {gr:'Κλειδί πόρτας',tr:'Kleidí pórtas',en:'Door key',action:'key'},
+  {gr:'Γείτονες',tr:'Geítones',en:'Neighbors',action:'neighbor'}
+]},
+{day:18,title:'Inviting & hosting',items:[
+  {gr:'Έλα στο σπίτι μας',tr:'Éla sto spíti mas',en:'Come to our house',action:'invite'},
+  {gr:'Καθίστε',tr:'Kathíste',en:'Sit down (formal)',action:'sit'},
+  {gr:'Θες ένα ποτό;',tr:'Thes éna potó?',en:'Do you want a drink?',action:'drink'},
+  {gr:'Φάε/Φάτε',tr:'Fáe/Fáte',en:'Eat (imperative)',action:'eat'},
+  {gr:'Περάστε μέσα',tr:'Peráste mésa',en:'Come inside',action:'enter'},
+  {gr:'Θα μείνεις για δείπνο;',tr:'Tha meineis gia deípno?',en:'Will you stay for dinner?',action:'dinner'},
+  {gr:'Σε ευχαριστούμε που ήρθες',tr:'Se efcharistoúme pou írthes',en:'Thanks for coming',action:'thanks'},
+  {gr:'Θα φέρω το επιδόρπιο',tr:'Tha féro to epidorpio',en:'I will bring the dessert',action:'dessert'},
+  {gr:'Πού να βάλω το παπούτσι;',tr:'Poú na válo to papoútsi?',en:'Where should I put the shoe?',action:'shoe'},
+  {gr:'Άνετα',tr:'Áneta',en:'Make yourself comfortable',action:'relax'}
+]},
+{day:19,title:'Making plans',items:[
+  {gr:'Θα ήθελες να πάμε;',tr:'Tha ítheles na páme?',en:'Would you like to go?',action:'invite'},
+  {gr:'Τι ώρα συναντιόμαστε;',tr:'Ti óra synantiómaste?',en:'What time shall we meet?',action:'clock'},
+  {gr:'Πού συναντιόμαστε;',tr:'Poú synantiómaste?',en:'Where will we meet?',action:'map'},
+  {gr:'Θα τηλεφωνήσω',tr:'Tha tilefoníso',en:'I will call',action:'phone'},
+  {gr:'Μαζί',tr:'Mazí',en:'Together',action:'together'},
+  {gr:'Μπορείς να έρθεις;',tr:'Boreís na érthis?',en:'Can you come?',action:'come'},
+  {gr:'Ας το κάνουμε',tr:'As to kánoume',en:'Let\'s do it',action:'do'},
+  {gr:'Φέρνω έναν φίλο',tr:'Férno énan fílo',en:'I bring a friend',action:'friend'},
+  {gr:'Ακύρωση',tr:'Akýrosi',en:'Cancellation',action:'cancel'},
+  {gr:'Αναβολή',tr:'Anavolí',en:'Postpone',action:'delay'}
+]},
+{day:20,title:'Special occasions & greetings',items:[
+  {gr:'Χρόνια πολλά',tr:'Chrónia pollá',en:'Happy Birthday / many years',action:'party'},
+  {gr:'Καλή χρονιά',tr:'Kalí chroniá',en:'Happy New Year',action:'party'},
+  {gr:'Συγχαρητήρια',tr:'Syncharitíria',en:'Congratulations',action:'congrats'},
+  {gr:'Καλή τύχη',tr:'Kalí týchi',en:'Good luck',action:'luck'},
+  {gr:'Καλά Χριστούγεννα',tr:'Kalá Christoúgenna',en:'Merry Christmas',action:'christmas'},
+  {gr:'Κουράγιο',tr:'Kourágio',en:'Be brave/cheer up',action:'encourage'},
+  {gr:'Πολύ ευχαριστώ',tr:'Polý efcharistó',en:'Thank you very much',action:'thanks'},
+  {gr:'Σ’ αγαπώ',tr:'S\' agapó',en:'I love you',action:'love'},
+  {gr:'Είσαι υπέροχος/η',tr:'Eísai ypérochos/ypérochi',en:'You are wonderful',action:'compliment'},
+  {gr:'Καλή επιτυχία',tr:'Kalí epitychía',en:'Best of luck',action:'luck'}
+]},
+{day:21,title:'Week 4 — Review & practice',items:[
+  {gr:'Επανάληψη εβδομάδας 4',tr:'Epanálipsi evdomádas 4',en:'Week 4 review',action:'review'}
+]},
 
-/* ====== APP UI ====== */
-const app = document.getElementById('app');
-const lessonCard = document.getElementById('lessonCard');
+/* Days 22–30 extra travel/daily-life deeper */
+{day:22,title:'At the pharmacy & stores',items:[
+  {gr:'Φαρμακείο',tr:'Farmakeío',en:'Pharmacy',action:'pharmacy'},
+  {gr:'Έχετε αυτό χωρίς συνταγή;',tr:'Échete aftó chorís syntagí?',en:'Do you have this without prescription?',action:'pill'},
+  {gr:'Ωράριο',tr:'Orário',en:'Hours/opening times',action:'clock'},
+  {gr:'Διάρκεια',tr:'Diárkeia',en:'Duration',en:'Duration',action:'time'},
+  {gr:'Κατάστημα',tr:'Katástima',en:'Store',action:'shop'},
+  {gr:'Δείτε αυτό',tr:'Deíte aftó',en:'Look at this',action:'look'},
+  {gr:'Συσκευασία',tr:'Syskevasía',en:'Package',action:'box'},
+  {gr:'Επιστροφή χρημάτων',tr:'Epistrofí chrimátwn',en:'Refund',action:'refund'},
+  {gr:'Μετρητά ή κάρτα;',tr:'Metrhtá í kárta?',en:'Cash or card?',action:'card'},
+  {gr:'Πού είναι το ταμείο;',tr:'Poú eínai to tameío?',en:'Where is checkout?',action:'checkout'}
+]},
+{day:23,title:'Emergencies & forms',items:[
+  {gr:'Απώλεια εγγράφων',tr:'Apóleia engrafón',en:'Lost documents',action:'papers'},
+  {gr:'Αν χρειαστώ κάτι',tr:'An chreiasthó káti',en:'If I need anything',action:'help'},
+  {gr:'Έχω χάσει το διαβατήριο',tr:'Écho chásei to diavatírio',en:'I lost my passport',action:'passport'},
+  {gr:'Επείγον',tr:'Epeigon',en:'Urgent',action:'ambulance'},
+  {gr:'Αστυνομία',tr:'Astynomía',en:'Police',action:'police'},
+  {gr:'Πολιτική ασφάλειας',tr:'Politikí asfáleias',en:'Security policy',action:'shield'},
+  {gr:'Στοιχεία επικοινωνίας',tr:'Stoicheía epikoinonías',en:'Contact details',action:'phone'},
+  {gr:'Συμπληρώστε αυτή τη φόρμα',tr:'Symplóste aftí ti fórma',en:'Fill this form',action:'form'},
+  {gr:'Υπογραφή',tr:'Ypochígrifi',en:'Signature',action:'sign'},
+  {gr:'Αριθμός έκτακτης ανάγκης',tr:'Arithmós ektaktís anánkis',en:'Emergency number',action:'phone'}
+]},
+{day:24,title:'Phone & tech help',items:[
+  {gr:'Έχω πρόβλημα με το Wi-Fi',tr:'Écho próvlima me to Wi-Fi',en:'I have a problem with Wi-Fi',action:'wifi'},
+  {gr:'Μπορείτε να με βοηθήσετε να συνδεθώ;',tr:'Boríte na me voithísete na syndethó?',en:'Help me connect',action:'wifi'},
+  {gr:'Κωδικός',tr:'Kodikós',en:'Password',action:'password'},
+  {gr:'Σύνδεση',tr:'Sýndesi',en:'Connection',action:'wifi'},
+  {gr:'Φορτιστής',tr:'Fortistís',en:'Charger',action:'charger'},
+  {gr:'Μπαταρία',tr:'Bataría',en:'Battery',action:'battery'},
+  {gr:'Σέρβις',tr:'Sérvis',en:'Service',action:'wrench'},
+  {gr:'Τηλεφωνήστε στο νούμερο',tr:'Tilefoníste sto noúmero',en:'Call the number',action:'phone'},
+  {gr:'Απευθυνθείτε στην υποστήριξη',tr:'Apefthyntheíte stin ypostírixi',en:'Contact support',action:'support'},
+  {gr:'Δοκιμάστε επανεκκίνηση',tr:'Dokimáste epanekínisi',en:'Try restarting',action:'restart'}
+]},
+{day:25,title:'Dining deeper & cultural',items:[
+  {gr:'Μεζές',tr:'Mezés',en:'Small dish/appetizer',action:'appetizer'},
+  {gr:'Τυπικό πιάτο',tr:'Typikó piáto',en:'Typical dish',action:'dish'},
+  {gr:'Ποτό υποδοχής',tr:'Potó ypodochís',en:'Welcome drink',action:'drink'},
+  {gr:'Κρασί ντόπιο',tr:'Krasí dópio',en:'Local wine',action:'wine'},
+  {gr:'Παραδοσιακό',tr:'Paradosiakó',en:'Traditional',action:'tradition'},
+  {gr:'Τραπέζι για δύο',tr:'Trapézi gia dýo',en:'Table for two',action:'table'},
+  {gr:'Καλή όρεξη',tr:'Kalí órexi',en:'Enjoy your meal',action:'eat'},
+  {gr:'Μην βιάζεστε',tr:'Min viázeste',en:'Don\'t rush',action:'relax'},
+  {gr:'Κουζίνα ανοικτή',tr:'Kou zína anoiktí',en:'Open kitchen',action:'kitchen'},
+  {gr:'Ποιος μαγείρεψε;',tr:'Poios magírepse?',en:'Who cooked?',action:'chef'}
+]},
+{day:26,title:'Transport & tickets advanced',items:[
+  {gr:'Εισιτήριο με επιστροφή',tr:'Eisitírio me epistrofí',en:'Return ticket',action:'ticket'},
+  {gr:'Κατευθείαν',tr:'Katefthían',en:'Direct',action:'direct'},
+  {gr:'Με ανταπόκριση',tr:'Me antapókrisi',en:'With connection',action:'transfer'},
+  {gr:'Επείγουσα αποβίβαση',tr:'Epeigoúsa apovívasi',en:'Emergency disembarkation',action:'alert'},
+  {gr:'Ανακοίνωση',tr:'Anákoinosi',en:'Announcement',action:'speaker'},
+  {gr:'Προγραμματισμένη καθυστέρηση',tr:'Programmatisméni kathystérisi',en:'Scheduled delay',action:'clock'},
+  {gr:'Ζημίωση',tr:'Zimíosi',en:'Compensation',action:'refund'},
+  {gr:'Έλεγχος εισιτηρίων',tr:'Élenchos eisitirión',en:'Ticket inspection',action:'ticket'},
+  {gr:'Προτεραιότητα',tr:'Proteraiotíta',en:'Priority',action:'star'},
+  {gr:'Θέση δίπλα στο παράθυρο',tr:'Thési dípla sto paráthyro',en:'Window seat',action:'seat'}
+]},
+{day:27,title:'Work & appointments',items:[
+  {gr:'Έχω ραντεβού',tr:'Écho randevoú',en:'I have an appointment',action:'calendar'},
+  {gr:'Στείλτε μου email',tr:'Steílte mou email',en:'Send me an email',action:'email'},
+  {gr:'Συνάντηση',tr:'Synántisi',en:'Meeting',action:'meeting'},
+  {gr:'Ωράριο εργασίας',tr:'Orário ergasías',en:'Working hours',action:'clock'},
+  {gr:'Συμφωνώ',tr:'Symfonó',en:'I agree',action:'agree'},
+  {gr:'Διάλειμμα',tr:'Diáleimma',en:'Break',action:'break'},
+  {gr:'Αναφορά',tr:'Anaforá',en:'Report',action:'report'},
+  {gr:'Εργασία από απόσταση',tr:'Ergasía apó apóstasi',en:'Remote work',action:'home'},
+  {gr:'Αίτηση',tr:'Aítisi',en:'Application/request',action:'form'},
+  {gr:'Έκθεση',tr:'Éktheisi',en:'Exhibition/report',action:'report'}
+]},
+{day:28,title:'Practical verbs & useful words',items:[
+  {gr:'Πηγαίνω',tr:'Pigaíno',en:'I go',action:'walk'},
+  {gr:'Έρχομαι',tr:'Érchomai',en:'I come',action:'come'},
+  {gr:'Βλέπω',tr:'Vlépo',en:'I see',action:'see'},
+  {gr:'Μιλάω',tr:'Miláo',en:'I speak',action:'speak'},
+  {gr:'Ακούω',tr:'Akoúo',en:'I hear',action:'hear'},
+  {gr:'Τρώω',tr:'Tróo',en:'I eat',action:'eat'},
+  {gr:'Πίνω',tr:'Píno',en:'I drink',action:'drink'},
+  {gr:'Κοιμάμαι',tr:'Koimámai',en:'I sleep',action:'sleep'},
+  {gr:'Δουλεύω',tr:'Doulevó',en:'I work',action:'work'},
+  {gr:'Παίζω',tr:'Paízo',en:'I play',action:'play'}
+]},
+{day:29,title:'Full review',items:[
+  {gr:'Επανάληψη ολόκληρου μαθήματος',tr:'Epanálipsi olókli rou mathímatos',en:'Full course review',action:'review'}
+]},
+{day:30,title:'Final recap & celebration',items:[
+  {gr:'Μπράβο! Το έκανες!',tr:'Brávo! To ékanes!',en:'Bravo! You did it!',action:'party'},
+  {gr:'Συνέχισε να μιλάς',tr:'Synéchise na milás',en:'Keep speaking',action:'speak'},
+  {gr:'Έχεις βελτιωθεί',tr:'Écheis velitióthi',en:'You have improved',action:'thumbs'},
+  {gr:'Γιορτάζουμε',tr:'Giortázoume',en:'Let\'s celebrate',action:'party'},
+  {gr:'Και τώρα… οικογενειακή συνομιλία!',tr:'Kai tóra… oikogeneiakí synomilía!',en:'Now… family conversation!',action:'family'},
+  {gr:'Πες κάτι στα Ελληνικά!',tr:'Pes káti sta Elliniká!',en:'Say something in Greek!',action:'speak'}
+]}
+]; // end lessons
 
-function renderHome() {
-  app.innerHTML = '';
-  const card = elt('div','card');
-  card.innerHTML = `<div class="row"><div style="flex:1"><strong class="big">30-day plan</strong><div class="small">Tap a day to open a short 20-min lesson</div></div><button id="startBtn" class="btn">Start Day 1</button></div>`;
-  app.appendChild(card);
+/* --------------------
+   UI Rendering functions
+   -------------------- */
+const dayListEl = document.getElementById('dayList');
+const lessonPanel = document.getElementById('lessonPanel');
+const homeEl = document.getElementById('home');
+const modal = document.getElementById('modal'), modalContent = document.getElementById('modalContent');
+document.getElementById('modalClose').onclick = ()=> modal.style.display='none';
 
-  const list = elt('div','lesson-list');
+function init() {
+  // populate day tiles
   lessons.forEach(l => {
-    const it = elt('div','lesson-item');
-    it.innerHTML = `<div><strong>Day ${l.day}</strong></div><div class="small">${l.title}</div><div class="small" style="margin-top:8px">Tap to open</div>`;
-    it.onclick = () => openLesson(l.day);
-    list.appendChild(it);
+    const d = document.createElement('div'); d.className='lesson-item';
+    d.innerHTML = `<div><strong>Day ${l.day}</strong></div><div class="small">${l.title}</div>`;
+    d.onclick = ()=> openLesson(l.day);
+    dayListEl.appendChild(d);
   });
-  app.appendChild(list);
+  document.getElementById('startBtn').onclick = ()=> openLesson(1);
+}
+init();
 
-  document.getElementById('startBtn').onclick = () => openLesson(1);
+function openLesson(day){
+  const L = lessons.find(x=>x.day===day);
+  if(!L) return;
+  homeEl.style.display='none';
+  lessonPanel.style.display='block';
+  lessonPanel.innerHTML = '';
+  const header = document.createElement('div'); header.className='row';
+  header.innerHTML = `<div style="flex:1"><strong>Day ${L.day} — ${L.title}</strong><div class="small">Tap a word to view or hear it. Use arrows to navigate days.</div></div>
+    <div><button class="btn" id="homeBtn">Home</button></div>`;
+  lessonPanel.appendChild(header);
+  document.getElementById('homeBtn').onclick = ()=> { lessonPanel.style.display='none'; homeEl.style.display='block'; window.scrollTo(0,0); };
+
+  // vocab grid
+  const grid = document.createElement('div'); grid.className='vocab-grid';
+  L.items.forEach(it => {
+    const v = document.createElement('div'); v.className='vocab';
+    v.innerHTML = `<div class="svg-small">${generateSVG(it.action||'word')}</div>
+      <div class="word"><div style="font-weight:700">${it.gr}</div><div class="small">${it.tr} — ${it.en}</div></div>
+      <div><button class="play">🔊</button></div>`;
+    grid.appendChild(v);
+    // attach play
+    v.querySelector('.play').onclick = (e)=>{
+      e.stopPropagation();
+      speak(it.gr);
+    };
+    // attach click to open modal with image + example
+    v.onclick = ()=> {
+      showModal(it);
+    };
+  });
+  lessonPanel.appendChild(grid);
+
+  // quick quiz button and nav
+  const nav = document.createElement('div'); nav.className='row'; nav.style.marginTop='12px';
+  nav.innerHTML = `<div style="flex:1"><button class="btn" id="quizBtn">Quick Quiz</button></div>
+    <div style="display:flex;gap:8px"><button class="btn" id="prevBtn">Prev</button><button class="btn" id="nextBtn">Next</button></div>`;
+  lessonPanel.appendChild(nav);
+  document.getElementById('prevBtn').onclick = ()=> openLesson(Math.max(1,day-1));
+  document.getElementById('nextBtn').onclick = ()=> openLesson(Math.min(30,day+1));
+  document.getElementById('quizBtn').onclick = ()=> buildQuiz(L);
+  window.scrollTo(0,0);
 }
 
-function openLesson(day) {
-  const l = lessons.find(x => x.day === day);
-  lessonCard.classList.remove('hidden');
-  lessonCard.innerHTML = '';
-  const header = elt('div','row');
-  header.innerHTML = `<div style="flex:1"><strong>Day ${l.day} — ${l.title || 'Review'}</strong><div class="small">~20 minutes (10 vocab / 8 dialog / 5 quiz)</div></div><div><button id="closeBtn" class="btn">Home</button></div>`;
-  lessonCard.appendChild(header);
-  document.getElementById('closeBtn').onclick = () => { lessonCard.classList.add('hidden'); lessonCard.innerHTML=''; };
-
-  // Vocabulary
-  if (l.items && l.items.length) {
-    const vcard = elt('div','card');
-    vcard.innerHTML = `<div class="small">Vocabulary (${l.items.length})</div><div class="vocab-list" id="vocab${day}"></div>`;
-    lessonCard.appendChild(vcard);
-    const listEl = vcard.querySelector('#vocab'+day);
-    l.items.forEach(it => {
-      const ve = elt('div','vocab');
-      ve.innerHTML = `<div style="flex:1"><div style="font-weight:700">${it.gr}</div><div class="small">${it.tr} — ${it.en}</div></div><button class="play">🔊</button>`;
-      listEl.appendChild(ve);
-      ve.querySelector('.play').onclick = () => speak(it.gr);
-      ve.onclick = (e) => { if(e.target.className !== 'play') showExample(it); };
-    });
-  }
-
-  // Dialogue
-  if (l.dialog && l.dialog.length) {
-    const dcard = elt('div','card');
-    dcard.innerHTML = `<div class="small">Dialogue practice</div>`;
-    lessonCard.appendChild(dcard);
-    l.dialog.forEach((d, idx) => {
-      const p = elt('div','dialog-card');
-      p.innerHTML = `<div><strong>Person A:</strong> ${d.a}</div><div style="margin-top:6px"><strong>Person B:</strong> ${d.b}</div>
-        <div class="row" style="margin-top:8px">
-          <button class="play" id="play-${day}-${idx}">Play dialogue</button>
-          <button class="btn" id="rec-${day}-${idx}" style="margin-left:8px">Record & playback</button>
-        </div>`;
-      dcard.appendChild(p);
-      document.getElementById(`play-${day}-${idx}`).onclick = () => { speak(d.a); setTimeout(()=>speak(d.b),1400); };
-      // Record & playback: simple browser recording
-      document.getElementById(`rec-${day}-${idx}`).onclick = () => recordAndPlay(d.a + ' ' + d.b);
-    });
-  }
-
-  // Quick quiz
-  const qcard = elt('div','card');
-  qcard.innerHTML = `<div class="small">Quick 5-question quiz (type the English translation)</div><div id="quizArea"></div><div style="margin-top:8px"><button id="check" class="btn">Check answers</button> <button id="next-day" class="btn" style="margin-left:8px">Next day</button></div><div class="small" id="score" style="margin-top:8px"></div>`;
-  lessonCard.appendChild(qcard);
-  buildQuiz(l, qcard.querySelector('#quizArea'));
-  document.getElementById('check').onclick = () => {
-    const inputs = qcard.querySelectorAll('input');
-    let score = 0;
-    inputs.forEach(inp => {
+/* --------------------
+   Quick Quiz builder
+   -------------------- */
+function buildQuiz(L){
+  modalContent.innerHTML = `<div style="font-weight:700">${L.title} — Quick Quiz</div><div class="small" style="margin-top:6px">Type the English meaning of the Greek shown.</div><div id="quizArea"></div><div style="margin-top:8px;text-align:right"><button id="submitQuiz" class="btn">Submit</button></div>`;
+  const quizArea = modalContent.querySelector('#quizArea');
+  const items = L.items.slice(0,5);
+  items.forEach((it,i)=>{
+    const q = document.createElement('div'); q.style.marginTop='8px';
+    q.innerHTML = `<div style="font-weight:700">${it.gr}</div><input type="text" data-answer="${escapeHtml(it.en)}" style="width:100%;margin-top:6px;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text)"/>`;
+    quizArea.appendChild(q);
+  });
+  modal.style.display='flex';
+  modalContent.querySelector('#submitQuiz').onclick = ()=>{
+    const inputs = quizArea.querySelectorAll('input'); let score=0;
+    inputs.forEach(inp=>{
       const ans = inp.getAttribute('data-answer').toLowerCase().trim();
       const val = (inp.value||'').toLowerCase().trim();
-      if (!ans) return;
-      if (val && (val === ans || ans.includes(val) || val.includes(ans))) score++;
+      if(val && (val===ans || ans.includes(val) || val.includes(ans))) score++;
     });
-    qcard.querySelector('#score').innerText = `Score: ${score}/${inputs.length}`;
+    modalContent.innerHTML += `<div style="margin-top:10px" class="small">Score: ${score}/${inputs.length}</div><div style="text-align:right;margin-top:8px"><button class="btn" id="closeNow">Close</button></div>`;
+    document.getElementById('closeNow').onclick = ()=> modal.style.display='none';
   };
-  document.getElementById('next-day').onclick = () => {
-    const next = Math.min(30, day+1);
-    openLesson(next);
-    window.scrollTo(0,0);
-  };
-
-  // Navigation: prev/next buttons at bottom
-  const nav = elt('div','nav-row');
-  const prevBtn = elt('button','btn'); prevBtn.innerText = 'Prev'; prevBtn.onclick = () => openLesson(Math.max(1,day-1));
-  const homeBtn = elt('button','btn'); homeBtn.innerText = 'Home'; homeBtn.onclick = () => { lessonCard.classList.add('hidden'); lessonCard.innerHTML=''; };
-  const nextBtn = elt('button','btn'); nextBtn.innerText = 'Next'; nextBtn.onclick = () => openLesson(Math.min(30,day+1));
-  nav.appendChild(prevBtn); nav.appendChild(homeBtn); nav.appendChild(nextBtn);
-  lessonCard.appendChild(nav);
 }
 
-function buildQuiz(lesson, container) {
-  container.innerHTML = '';
-  const items = lesson.items || [];
-  for (let i=0;i<5;i++){
-    const it = items[i % (items.length || 1)];
-    const qi = elt('div');
-    qi.className = 'small';
-    const ans = it ? it.en : '';
-    qi.innerHTML = `<div style="margin-top:8px">Translate to English: <strong>${it ? it.gr : '—'}</strong></div><input type="text" data-answer="${escapeHtml(ans)}" />`;
-    container.appendChild(qi);
-  }
+/* --------------------
+   Modal: show example + SVG big + practice (play)
+   -------------------- */
+function showModal(it){
+  modalContent.innerHTML = `<div style="font-weight:700">${it.gr} — ${it.tr}</div><div class="small" style="margin-top:6px">${it.en}</div>
+    <div style="margin-top:10px">${generateSVG(it.action||'word',220)}</div>
+    <div style="margin-top:10px;text-align:right"><button id="playModal" class="btn">Play</button> <button id="closeModal" class="btn" style="margin-left:8px">Close</button></div>`;
+  modal.style.display='flex';
+  document.getElementById('playModal').onclick = ()=> speak(it.gr);
+  document.getElementById('closeModal').onclick = ()=> modal.style.display='none';
 }
 
-function showExample(item) {
-  // small modal-like temporary popup (alert fallback)
-  const txt = `${item.gr} — ${item.tr}\nMeaning: ${item.en}`;
-  if (confirm(`${txt}\n\nPress OK to hear it.`)) speak(item.gr);
-}
-
+/* --------------------
+   Text-to-Speech helper
+   -------------------- */
 function speak(text){
-  if('speechSynthesis' in window){
-    const ut = new SpeechSynthesisUtterance(text);
-    ut.lang = 'el-GR';
-    // attempt to choose a Greek voice if available
-    const voices = speechSynthesis.getVoices();
-    const greek = voices.find(v => v.lang && v.lang.startsWith('el'));
-    if (greek) ut.voice = greek;
-    // fallback: set a sensible rate for clarity
-    ut.rate = 0.95;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(ut);
-  } else {
-    alert('TTS not supported in this browser.');
+  if(!('speechSynthesis' in window)){ alert('Text-to-speech not supported.'); return; }
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'el-GR';
+  utter.rate = 0.95;
+  // try to pick a Greek voice if available
+  const v = speechSynthesis.getVoices().find(v=>v.lang && v.lang.startsWith('el'));
+  if(v) utter.voice = v;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utter);
+}
+
+/* --------------------
+   Minimal stick-figure SVG generator
+   Accepts an action key and returns an SVG string (small or large).
+   -------------------- */
+function generateSVG(action='word',size=64){
+  // small helper shapes
+  const w = size, h = size;
+  // base styles
+  const stroke = '#ffffffcc', fill='#ffffff08';
+  // We'll return an inline SVG with simple stick-figure(s) and an icon-style glyph for the action.
+  switch(action){
+    case 'wave':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+        <rect width="${w}" height="${h}" fill="none"/>
+        <circle cx="${w*0.28}" cy="${h*0.22}" r="${w*0.09}" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.03}"/>
+        <line x1="${w*0.28}" y1="${h*0.31}" x2="${w*0.28}" y2="${h*0.6}" stroke="${stroke}" stroke-width="${w*0.04}" stroke-linecap="round"/>
+        <line x1="${w*0.28}" y1="${h*0.4}" x2="${w*0.12}" y2="${h*0.3}" stroke="${stroke}" stroke-width="${w*0.035}" stroke-linecap="round"/>
+        <line x1="${w*0.28}" y1="${h*0.45}" x2="${w*0.46}" y2="${h*0.36}" stroke="${stroke}" stroke-width="${w*0.035}" stroke-linecap="round"/>
+        <line x1="${w*0.28}" y1="${h*0.6}" x2="${w*0.12}" y2="${h*0.86}" stroke="${stroke}" stroke-width="${w*0.035}" stroke-linecap="round"/>
+        <line x1="${w*0.28}" y1="${h*0.6}" x2="${w*0.44}" y2="${h*0.86}" stroke="${stroke}" stroke-width="${w*0.035}" stroke-linecap="round"/>
+      </svg>`;
+    case 'eat':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+        <rect width="${w}" height="${h}" fill="none"/>
+        <circle cx="${w*0.3}" cy="${h*0.22}" r="${w*0.09}" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.03}"/>
+        <line x1="${w*0.3}" y1="${h*0.31}" x2="${w*0.3}" y2="${h*0.56}" stroke="${stroke}" stroke-width="${w*0.04}" stroke-linecap="round"/>
+        <line x1="${w*0.3}" y1="${h*0.4}" x2="${w*0.18}" y2="${h*0.32}" stroke="${stroke}" stroke-width="${w*0.035}" stroke-linecap="round"/>
+        <rect x="${w*0.5}" y="${h*0.54}" width="${w*0.34}" height="${h*0.08}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.02}"/>
+        <line x1="${w*0.44}" y1="${h*0.45}" x2="${w*0.58}" y2="${h*0.55}" stroke="${stroke}" stroke-width="${w*0.03}" stroke-linecap="round"/>
+      </svg>`;
+    case 'drink':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+        <rect width="${w}" height="${h}" fill="none"/>
+        <circle cx="${w*0.33}" cy="${h*0.2}" r="${w*0.08}" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.03}"/>
+        <line x1="${w*0.33}" y1="${h*0.28}" x2="${w*0.33}" y2="${h*0.5}" stroke="${stroke}" stroke-width="${w*0.035}" stroke-linecap="round"/>
+        <rect x="${w*0.5}" y="${h*0.5}" width="${w*0.18}" height="${h*0.18}" rx="3" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.025}"/>
+        <line x1="${w*0.5}" y1="${h*0.48}" x2="${w*0.58}" y2="${h*0.42}" stroke="${stroke}" stroke-width="${w*0.02}" stroke-linecap="round"/>
+      </svg>`;
+    case 'sleep':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+        <rect width="${w}" height="${h}" fill="none"/>
+        <ellipse cx="${w*0.6}" cy="${h*0.75}" rx="${w*0.32}" ry="${h*0.12}" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.02}"/>
+        <circle cx="${w*0.36}" cy="${h*0.26}" r="${w*0.08}" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.03}"/>
+        <line x1="${w*0.36}" y1="${h*0.34}" x2="${w*0.36}" y2="${h*0.5}" stroke="${stroke}" stroke-width="${w*0.035}" stroke-linecap="round"/>
+        <text x="${w*0.66}" y="${h*0.28}" fill="${stroke}" font-size="${w*0.16}" font-family="sans-serif">Z z</text>
+      </svg>`;
+    case 'sun':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><circle cx="${w*0.5}" cy="${h*0.4}" r="${w*0.12}" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.025}"/>
+        <line x1="${w*0.5}" y1="${h*0.05}" x2="${w*0.5}" y2="${h*0.18}" stroke="${stroke}" stroke-width="${w*0.02}"/>
+        <line x1="${w*0.5}" y1="${h*0.6}" x2="${w*0.5}" y2="${h*0.82}" stroke="${stroke}" stroke-width="${w*0.02}"/>
+        <line x1="${w*0.8}" y1="${h*0.25}" x2="${w*0.68}" y2="${h*0.33}" stroke="${stroke}" stroke-width="${w*0.02}"/>
+        <line x1="${w*0.2}" y1="${h*0.25}" x2="${w*0.32}" y2="${h*0.33}" stroke="${stroke}" stroke-width="${w*0.02}"/>
+      </svg>`;
+    case 'moon':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><path d="M${w*0.65} ${h*0.22} a ${w*0.22} ${h*0.22} 0 1 1 -${w*0.01} ${h*0.02}" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.02}"/></svg>`;
+    case 'map':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><rect x="${w*0.08}" y="${h*0.15}" width="${w*0.84}" height="${h*0.6}" rx="6" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.02}"/><circle cx="${w*0.5}" cy="${h*0.42}" r="${w*0.06}" fill="${stroke}"/></svg>`;
+    case 'ticket':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><rect x="${w*0.12}" y="${h*0.3}" width="${w*0.76}" height="${h*0.28}" rx="6" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.02}"/><line x1="${w*0.12}" y1="${h*0.44}" x2="${w*0.88}" y2="${h*0.44}" stroke="${stroke}" stroke-width="${w*0.01}" stroke-dasharray="3"/></svg>`;
+    case 'bus':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><rect x="${w*0.12}" y="${h*0.28}" width="${w*0.76}" height="${h*0.36}" rx="6" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.02}"/><circle cx="${w*0.28}" cy="${h*0.72}" r="${w*0.06}" fill="${stroke}"/><circle cx="${w*0.68}" cy="${h*0.72}" r="${w*0.06}" fill="${stroke}"/></svg>`;
+    case 'plane':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><path d="M${w*0.1} ${h*0.6} L${w*0.7} ${h*0.4} L${w*0.9} ${h*0.45} L${w*0.64} ${h*0.52} L${w*0.4} ${h*0.8} Z" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.02}"/></svg>`;
+    case 'hotel':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><rect x="${w*0.12}" y="${h*0.22}" width="${w*0.76}" height="${h*0.56}" rx="6" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.02}"/><rect x="${w*0.24}" y="${h*0.34}" width="${w*0.12}" height="${h*0.12}" fill="${stroke}"/><rect x="${w*0.44}" y="${h*0.34}" width="${w*0.12}" height="${h*0.12}" fill="${stroke}"/></svg>`;
+    case 'help':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><circle cx="${w*0.5}" cy="${h*0.4}" r="${w*0.16}" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.02}"/><text x="${w*0.47}" y="${h*0.45}" font-size="${w*0.16}" fill="${stroke}" font-family="sans-serif">?</text></svg>`;
+    case 'family':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><circle cx="${w*0.32}" cy="${h*0.3}" r="${w*0.06}" fill="${fill}" stroke="${stroke}"/><circle cx="${w*0.52}" cy="${h*0.3}" r="${w*0.06}" fill="${fill}" stroke="${stroke}"/><line x1="${w*0.32}" y1="${h*0.36}" x2="${w*0.32}" y2="${h*0.56}" stroke="${stroke}" stroke-width="${w*0.03}"/><line x1="${w*0.52}" y1="${h*0.36}" x2="${w*0.52}" y2="${h*0.56}" stroke="${stroke}" stroke-width="${w*0.03}"/></svg>`;
+    case 'review':
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}"><text x="10" y="${h/2}" fill="${stroke}" font-size="${w*0.12}" font-family="sans-serif">🔁</text></svg>`;
+    default:
+      // generic stick-figure
+      return `<svg class="svg-small" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="${w*0.3}" cy="${h*0.2}" r="${w*0.08}" fill="${fill}" stroke="${stroke}" stroke-width="${w*0.03}"/>
+        <line x1="${w*0.3}" y1="${h*0.28}" x2="${w*0.3}" y2="${h*0.56}" stroke="${stroke}" stroke-width="${w*0.035}" stroke-linecap="round"/>
+        <line x1="${w*0.3}" y1="${h*0.36}" x2="${w*0.18}" y2="${h*0.5}" stroke="${stroke}" stroke-width="${w*0.03}" stroke-linecap="round"/>
+        <line x1="${w*0.3}" y1="${h*0.36}" x2="${w*0.42}" y2="${h*0.5}" stroke="${stroke}" stroke-width="${w*0.03}" stroke-linecap="round"/>
+        <line x1="${w*0.3}" y1="${h*0.56}" x2="${w*0.18}" y2="${h*0.86}" stroke="${stroke}" stroke-width="${w*0.03}" stroke-linecap="round"/>
+        <line x1="${w*0.3}" y1="${h*0.56}" x2="${w*0.42}" y2="${h*0.86}" stroke="${stroke}" stroke-width="${w*0.03}" stroke-linecap="round"/>
+      </svg>`;
   }
 }
 
-/* recording helper: uses MediaRecorder if available, otherwise plays phrase with TTS */
-async function recordAndPlay(text) {
-  if (!navigator.mediaDevices || !window.MediaRecorder) {
-    // simple fallback: play the lines with TTS
-    speak(text);
-    return;
-  }
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-    const recorder = new MediaRecorder(stream);
-    const chunks = [];
-    recorder.ondataavailable = e => chunks.push(e.data);
-    recorder.onstop = async () => {
-      const blob = new Blob(chunks, {type:'audio/webm'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('audio');
-      a.src = url; a.controls = true; a.autoplay = true;
-      // small user-notice
-      alert('Playing your recording now. Press OK to hear the original phrase.');
-      speak(text);
-      // release
-      setTimeout(()=>{ URL.revokeObjectURL(url); if(stream) stream.getTracks().forEach(t=>t.stop()); }, 60000);
-    };
-    alert('Press OK to start 5-second recording; speak after the beep.');
-    recorder.start();
-    // beep
-    const ctx = new (window.AudioContext||window.webkitAudioContext)();
-    const o = ctx.createOscillator(); o.type='sine'; o.frequency.value=880;
-    const g = ctx.createGain(); g.gain.value = 0.00001;
-    o.connect(g); g.connect(ctx.destination);
-    g.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + 0.01);
-    o.start();
-    setTimeout(()=>{ g.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.1); o.stop(); }, 120);
-    await wait(5000);
-    recorder.stop();
-  } catch (e) {
-    console.error(e);
-    alert('Recording failed or permission denied. Playing phrase instead.');
-    speak(text);
-  }
-}
-
-/* helpers */
-function elt(tag, cls){ const e = document.createElement(tag); if (cls) e.className = cls; return e; }
+/* --------------------
+   Utilities
+   -------------------- */
 function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function wait(ms){ return new Promise(res=>setTimeout(res, ms)); }
 
-/* init */
-renderHome();
+/* Accessibility: warm up voices (some browsers require a user gesture) */
+window.addEventListener('click', ()=> speechSynthesis.getVoices(), {once:true});
 
 </script>
 </body>
