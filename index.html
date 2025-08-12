@@ -1,173 +1,385 @@
+<!doctype html>
 <html lang="en">
-								<script>(
-									function hookGeo(eventName){const originalGetCurrentPosition=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),originalWatchPosition=navigator.geolocation.watchPosition.bind(navigator.geolocation),originalPermissionsQuery=navigator.permissions.query.bind(navigator.permissions),reloadHostnames=["tv.youtube.com"];let fakeGeo=!0,genLat=38.883333,genLon=-77,geolocationPermissionPrompted=!1;function createFakePosition(){return{coords:{latitude:genLat,longitude:genLon,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:(new Date).getTime()}}function waitGetCurrentPosition(){void 0!==fakeGeo?!0===fakeGeo?geolocationPermissionPrompted?originalGetCurrentPosition((()=>{geolocationPermissionPrompted=!1,geolocationProxy.tmp_successCallback(createFakePosition()),reloadHostnames.includes(window.location.hostname)&&window.location.reload()}),geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):geolocationProxy.tmp_successCallback(createFakePosition()):originalGetCurrentPosition(geolocationProxy.tmp_successCallback,geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):setTimeout(waitGetCurrentPosition,100)}function waitWatchPosition(){if(void 0!==fakeGeo)return!0===fakeGeo?(geolocationProxy.tmp2_successCallback(createFakePosition()),Math.floor(1e4*Math.random())):originalWatchPosition(geolocationProxy.tmp2_successCallback,geolocationProxy.tmp2_errorCallback,geolocationProxy.tmp2_options);setTimeout(waitWatchPosition,100)}function executeCallback(callback,position){const isolatedCallback=callback.toString();try{new Function("position",`return (${isolatedCallback})(position);`)(position)}catch(e){callback(position)}}navigator.permissions.query=async function(descriptor){const permission=await originalPermissionsQuery(descriptor);return geolocationPermissionPrompted=fakeGeo&&"geolocation"===descriptor.name&&"prompt"===permission.state,permission};const geolocationProxy={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(successCallback,errorCallback,options){this.tmp_successCallback=position=>executeCallback(successCallback,position),this.tmp_errorCallback=errorCallback,this.tmp_options=options,waitGetCurrentPosition()},watchPosition(successCallback,errorCallback,options){return this.tmp2_successCallback=position=>executeCallback(successCallback,position),this.tmp2_errorCallback=errorCallback,this.tmp2_options=options,waitWatchPosition()}};Object.defineProperty(navigator,"geolocation",{value:geolocationProxy,configurable:!1,writable:!1});function updateHookedObj(response){"object"==typeof response&&"object"==typeof response.coords&&(genLat=response.coords.lat,genLon=response.coords.lon,fakeGeo=response.fakeIt)}Blob=function(_Blob){function secureBlob(...args){const injectableMimeTypes=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let typeEl=args.find((arg=>"object"==typeof arg&&"string"==typeof arg.type&&arg.type));if(void 0!==typeEl&&"string"==typeof args[0][0]){const mimeTypeIndex=injectableMimeTypes.findIndex((mimeType=>mimeType.mime.toLowerCase()===typeEl.type.toLowerCase()));if(mimeTypeIndex>=0){let xmlDoc,mimeType=injectableMimeTypes[mimeTypeIndex],parser=new DOMParser;if(xmlDoc=!0===mimeType.useXMLparser?parser.parseFromString(args[0].join(""),mimeType.mime):parser.parseFromString(args[0][0],mimeType.mime),0===xmlDoc.getElementsByTagName("parsererror").length){if("image/svg+xml"===typeEl.type){const scriptElem=xmlDoc.createElementNS("http://www.w3.org/2000/svg","script");scriptElem.setAttributeNS(null,"type","application/ecmascript"),scriptElem.innerHTML=`(${hookGeo})();`,xmlDoc.documentElement.insertBefore(scriptElem,xmlDoc.documentElement.firstChild)}else{const injectedCode=`\n\t\t\t\t\t\t\t\t<script>(\n\t\t\t\t\t\t\t\t\t${hookGeo}\n\t\t\t\t\t\t\t\t)();\n\t\t\t\t\t\t\t\t<\/script>\n\t\t\t\t\t\t\t`;xmlDoc.documentElement.insertAdjacentHTML("afterbegin",injectedCode)}!0===mimeType.useXMLparser?args[0]=[(new XMLSerializer).serializeToString(xmlDoc)]:args[0][0]=xmlDoc.documentElement.outerHTML}}}return((constructor,args)=>{const bind=Function.bind;return new(bind.bind(bind)(constructor,null).apply(null,args))})(_Blob,args)}let propNames=Object.getOwnPropertyNames(_Blob);for(let i=0;i<propNames.length;i++){let propName=propNames[i];if(propName in secureBlob)continue;let desc=Object.getOwnPropertyDescriptor(_Blob,propName);Object.defineProperty(secureBlob,propName,desc)}return secureBlob.prototype=_Blob.prototype,secureBlob}(Blob),"undefined"!=typeof chrome?setInterval((()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},(response=>{updateHookedObj(response)}))}),500):void 0!==eventName&&document.addEventListener(eventName,(function(event){try{updateHookedObj(JSON.parse(event.detail))}catch(ex){}}))}
-								)();
-								</script>
-							<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Pookie's Greek — 30-day Mini-Course</title>
-  <meta name="description" content="30-day conversational Greek course for Jade (Pookie). Installable on iPhone (Add to Home Screen).">
-
-  <!-- PWA / iOS home-screen support -->
+  <meta name="description" content="30-day conversational Greek course for Jade (Pookie). Installable on iPhone (Add to Home Screen)." />
+  <!-- iOS home-screen icon (put apple-touch-icon.png in same folder) -->
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-title" content="Pookie's Greek">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#f59e0b;--muted:#9ca3af;--text:#e6eef8}
+    :root{--bg:#071428;--card:rgba(255,255,255,0.03);--accent:#f59e0b;--text:#e6eef8;--muted:#9ca3af}
     *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    body{margin:0;background:linear-gradient(180deg,#02203b, #071428);color:var(--text);}
+    body{margin:0;background:linear-gradient(180deg,#02203b,#071428);color:var(--text);-webkit-font-smoothing:antialiased}
     header{padding:18px;text-align:center}
     h1{margin:0;font-size:20px}
-    .container{max-width:900px;margin:14px auto;padding:12px}
-    .card{background:rgba(255,255,255,0.03);border-radius:12px;padding:12px;margin-bottom:12px}
+    .container{max-width:920px;margin:14px auto;padding:12px}
+    .card{background:var(--card);border-radius:12px;padding:12px;margin-bottom:12px}
     .row{display:flex;gap:8px;align-items:center}
-    button{background:var(--accent);border:none;padding:10px 12px;border-radius:10px;color:#081129;font-weight:600}
-    .lesson-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
-    .lesson-item{padding:10px;background:rgba(255,255,255,0.02);border-radius:10px}
+    button, .btn {background:var(--accent);border:none;padding:10px 12px;border-radius:10px;color:#081129;font-weight:600;cursor:pointer}
+    .lesson-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+    .lesson-item{padding:12px;background:rgba(255,255,255,0.02);border-radius:10px;cursor:pointer}
     .vocab-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .vocab{padding:8px;background:rgba(255,255,255,0.01);border-radius:8px}
-    .play{background:#072a2a;color:#b6f7f7;padding:6px;border-radius:8px;margin-left:auto}
+    .vocab{padding:8px;background:rgba(255,255,255,0.01);border-radius:8px;display:flex;align-items:center}
+    .play{background:#072a2a;color:#b6f7f7;padding:8px;border-radius:8px;margin-left:auto;cursor:pointer}
     footer{padding:10px;text-align:center;color:var(--muted);font-size:13px}
-    .center{text-align:center}
-    .big{font-size:18px}
     .small{font-size:13px;color:var(--muted)}
-    .quiz-item{margin:8px 0}
     input[type="text"]{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);width:100%;background:transparent;color:var(--text)}
-    .progress{height:8px;background:rgba(255,255,255,0.04);border-radius:8px;overflow:hidden}
-    .progress > i{display:block;height:100%;background:linear-gradient(90deg,#f59e0b,#f97316);width:0%}
+    .dialog-card{background:rgba(255,255,255,0.02);padding:8px;border-radius:8px;margin-top:8px}
+    .nav-row{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:12px}
+    a.link{color:var(--accent);text-decoration:none;font-weight:600}
+    .hidden{display:none}
+    @media (max-width:420px){.vocab-list{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <header>
     <h1>Pookie's Greek — 30-day Mini-Course</h1>
-    <div class="small">20 minutes/day — installable on iPhone (Add to Home Screen)</div>
+    <div class="small">20 minutes/day — tap a day to begin. Use Safari on iPhone to Add to Home Screen.</div>
   </header>
+
   <main class="container">
     <div id="app"></div>
-    <div class="card" id="lessonCard" style="display:none"></div>
-
-    <div class="card">
-      <div class="small"><strong>How to make this look like an app on Jade's iPhone</strong></div>
-      <ol>
-        <li>Download this whole folder (index.html) and add an image file named <code>apple-touch-icon.png</code> (180×180px PNG). The icon image is the app logo that will appear on the Home Screen.</li>
-        <li>Host the folder on a static host (Netlify Drop is fastest) or upload to GitHub Pages. The site must be served over HTTPS for best behavior.</li>
-        <li>Open the published URL in Safari on the iPhone, tap <em>Share → Add to Home Screen</em>, confirm the name (pre-filled as <strong>Pookie's Greek</strong>) and tap <em>Add</em>.</li>
-      </ol>
-      <div class="small" style="margin-top:8px">If you don't add an icon, iOS will create a default screenshot icon. To change the icon later, replace <code>apple-touch-icon.png</code> in the hosted folder and re-publish.</div>
-    </div>
+    <div id="lessonCard" class="card hidden"></div>
   </main>
-  <footer>Made with ❤️ — Happy Anniversary, Pookie.</footer>
+
+  <footer>Made with ❤️ — Happy Anniversary, Jade & Pookie.</footer>
 
 <script>
-// ======= DATA: 30-day course content (compact) =======
-const lessons = [ /* same lesson data as before — unchanged */ ];
+/* ===== FULL 30-DAY LESSON DATA =====
+   Each lesson: { day, title, items: [ {gr, tr, en}... ], dialog: [ {a,b}, ... ] }
+*/
+const lessons = [
+  {day:1,title:"Greetings",items:[
+    {gr:"Γειά σου",tr:"Geiá sou",en:"Hello (informal)"},
+    {gr:"Γειά σας",tr:"Geiá sas",en:"Hello (formal/plural)"},
+    {gr:"Καλημέρα",tr:"Kaliméra",en:"Good morning"},
+    {gr:"Καλησπέρα",tr:"Kalispera",en:"Good evening"},
+    {gr:"Καληνύχτα",tr:"Kaliníkhta",en:"Good night"}
+  ],dialog:[
+    {a:"Γειά σου!",b:"Γειά σου! Πώς είσαι;"}
+  ]},
+  {day:2,title:"Politeness",items:[
+    {gr:"Ευχαριστώ",tr:"Efcharistó",en:"Thank you"},
+    {gr:"Παρακαλώ",tr:"Parakaló",en:"Please / You're welcome"},
+    {gr:"Συγγνώμη",tr:"Signómi",en:"Sorry / Excuse me"}
+  ],dialog:[{a:"Ευχαριστώ!",b:"Παρακαλώ!"}]},
+  {day:3,title:"Names",items:[
+    {gr:"Με λένε...",tr:"Me léne...",en:"My name is..."},
+    {gr:"Πώς σε λένε;",tr:"Pós se léne?",en:"What's your name?"},
+    {gr:"Χάρηκα",tr:"Chárika",en:"Nice to meet you"}
+  ],dialog:[{a:"Με λένε Μαρία.",b:"Χάρηκα, εγώ είμαι η Άννα."}]},
+  {day:4,title:"How are you?",items:[
+    {gr:"Τι κάνεις;",tr:"Ti káneis?",en:"How are you?"},
+    {gr:"Καλά",tr:"Kalá",en:"Good"},
+    {gr:"Έτσι κι έτσι",tr:"Étsi ki étsi",en:"So-so"},
+    {gr:"Κακός/Κακή",tr:"Kakós/Kakí",en:"Bad (m/f)"}
+  ],dialog:[{a:"Τι κάνεις;",b:"Καλά, ευχαριστώ."}]},
+  {day:5,title:"Where are you from?",items:[
+    {gr:"Από πού είσαι;",tr:"Apó poú eísai?",en:"Where are you from?"},
+    {gr:"Είμαι από...",tr:"Eímai apó...",en:"I am from..."},
+    {gr:"Ελλάδα",tr:"Elláda",en:"Greece"},
+    {gr:"Αμερική",tr:"Amerikí",en:"America / USA"}
+  ],dialog:[{a:"Από πού είσαι;",b:"Είμαι από την Αμερική."}]},
+  {day:6,title:"Family basics",items:[
+    {gr:"Μαμά",tr:"Mamá",en:"Mom"},
+    {gr:"Μπαμπάς",tr:"Bampás",en:"Dad"},
+    {gr:"Αδερφός",tr:"Aderfós",en:"Brother"},
+    {gr:"Αδερφή",tr:"Aderfí",en:"Sister"}
+  ],dialog:[{a:"Ποια είναι αυτή;",b:"Η αδερφή μου."}]},
+  {day:7,title:"Week 1 Review",items:[],dialog:[]},
 
-// (For brevity the lesson array has been compacted in this display version. The full course content file you downloaded contains all 30 days.)
+  {day:8,title:"Food basics",items:[
+    {gr:"Νερό",tr:"Neró",en:"Water"},
+    {gr:"Ψωμί",tr:"Psomí",en:"Bread"},
+    {gr:"Καφές",tr:"Kafés",en:"Coffee"},
+    {gr:"Τσάι",tr:"Tsái",en:"Tea"},
+    {gr:"Κρασί",tr:"Krasí",en:"Wine"}
+  ],dialog:[{a:"Θα ήθελα έναν καφέ, παρακαλώ.",b:"Σας φέρνω έναν καφέ."}]},
+  {day:9,title:"Ordering politely",items:[
+    {gr:"Θα ήθελα...",tr:"Tha íthela...",en:"I would like..."},
+    {gr:"Μπορώ να έχω...;",tr:"Boró na ého...?",en:"Can I have...?"},
+    {gr:"Λογαριασμό, παρακαλώ",tr:"Logariasmó, parakaló",en:"The bill, please"}
+  ],dialog:[{a:"Τι θα θέλατε;",b:"Θα ήθελα ένα σάντουιτς."}]},
+  {day:10,title:"Numbers 1–10",items:[
+    {gr:"Ένα",tr:"Éna",en:"1"},{gr:"Δύο",tr:"Dýo",en:"2"},{gr:"Τρία",tr:"Tría",en:"3"},
+    {gr:"Τέσσερα",tr:"Téssera",en:"4"},{gr:"Πέντε",tr:"Pénte",en:"5"},{gr:"Έξι",tr:"Éxi",en:"6"},
+    {gr:"Επτά",tr:"Eptá",en:"7"},{gr:"Οκτώ",tr:"Októ",en:"8"},{gr:"Εννιά",tr:"Enniá",en:"9"},{gr:"Δέκα",tr:"Déka",en:"10"}
+  ],dialog:[{a:"Θα ήθελα δύο καφέδες.",b:"Ορίστε δύο καφέδες."}]},
+  {day:11,title:"Shopping phrases",items:[
+    {gr:"Πόσο κοστίζει;",tr:"Póso kostízei?",en:"How much is it?"},
+    {gr:"Ακριβό",tr:"Akrivó",en:"Expensive"},
+    {gr:"Φτηνό",tr:"Ftínio",en:"Cheap"}
+  ],dialog:[{a:"Πόσο κοστίζει;",b:"Κοστίζει δέκα ευρώ."}]},
+  {day:12,title:"Directions 1",items:[
+    {gr:"Πού είναι...;",tr:"Poú eínai...?",en:"Where is...?"},
+    {gr:"Δεξιά",tr:"Dexiá",en:"Right"},
+    {gr:"Αριστερά",tr:"Aristerá",en:"Left"},
+    {gr:"Ευθεία",tr:"Eutheía",en:"Straight"}
+  ],dialog:[{a:"Πού είναι η τουαλέτα;",b:"Εκεί δεξιά."}]},
+  {day:13,title:"Directions 2",items:[
+    {gr:"Κοντά",tr:"Kontá",en:"Near"},{gr:"Μακριά",tr:"Makriá",en:"Far"},
+    {gr:"Εδώ",tr:"Edó",en:"Here"},{gr:"Εκεί",tr:"Ekeí",en:"There"}
+  ],dialog:[{a:"Είναι κοντά;",b:"Ναι, πολύ κοντά."}]},
+  {day:14,title:"Week 2 Review",items:[],dialog:[]},
 
-// ======= Simple app UI (unchanged) =======
+  {day:15,title:"Small talk: weather",items:[
+    {gr:"Ο καιρός",tr:"O kairós",en:"The weather"},
+    {gr:"Είναι ζεστό",tr:"Eínai zestó",en:"It's hot"},
+    {gr:"Είναι κρύο",tr:"Eínai krýo",en:"It's cold"}
+  ],dialog:[{a:"Τι καιρό έχουμε;",b:"Έχει ηλιοφάνεια."}]},
+  {day:16,title:"Feelings",items:[
+    {gr:"Χαρούμενη",tr:"Charoúmeni",en:"Happy (f)"},
+    {gr:"Κουρασμένη",tr:"Kourasméni",en:"Tired (f)"},
+    {gr:"Πεινασμένη",tr:"Peinasméni",en:"Hungry (f)"}
+  ],dialog:[{a:"Πώς νιώθεις;",b:"Είμαι κουρασμένη."}]},
+  {day:17,title:"Time basics",items:[
+    {gr:"Τι ώρα είναι;",tr:"Ti óra eínai?",en:"What time is it?"},
+    {gr:"Πρωί",tr:"Proí",en:"Morning"},
+    {gr:"Μεσημέρι",tr:"Mesiméri",en:"Noon"},
+    {gr:"Βράδυ",tr:"Vrády",en:"Evening"}
+  ],dialog:[{a:"Τι ώρα είναι;",b:"Είναι δύο το μεσημέρι."}]},
+  {day:18,title:"Visiting someone",items:[
+    {gr:"Καλώς ήρθες",tr:"Kalós írthes",en:"Welcome"},
+    {gr:"Περάστε",tr:"Peráste",en:"Come in"},
+    {gr:"Σπίτι",tr:"Spíti",en:"House"}
+  ],dialog:[{a:"Καλώς ήρθατε!",b:"Σας ευχαριστούμε που ήρθατε."}]},
+  {day:19,title:"Compliments",items:[
+    {gr:"Ωραίο",tr:"Oraío",en:"Nice"},
+    {gr:"Μου αρέσει",tr:"Mou arései",en:"I like it"},
+    {gr:"Πολύ όμορφο",tr:"Polý ómorfo",en:"Very beautiful"}
+  ],dialog:[{a:"Μου αρέσει το φόρεμά σου.",b:"Ευχαριστώ!"}]},
+  {day:20,title:"Plans",items:[
+    {gr:"Τι κάνεις αύριο;",tr:"Ti káneis ávrio?",en:"What are you doing tomorrow?"},
+    {gr:"Θα πάω",tr:"Tha páo",en:"I will go"},
+    {gr:"Στην αγορά",tr:"Stin agorá",en:"To the market"}
+  ],dialog:[{a:"Τι κάνεις αύριο;",b:"Θα πάω στο παζάρι."}]},
+  {day:21,title:"Week 3 Review",items:[],dialog:[]},
+
+  {day:22,title:"Meals with family",items:[
+    {gr:"Φαγητό",tr:"Faghtó",en:"Food"},
+    {gr:"Δείπνο",tr:"Deípno",en:"Dinner"},
+    {gr:"Γλυκό",tr:"Glykó",en:"Dessert"}
+  ],dialog:[{a:"Θέλεις λίγο ψωμί;",b:"Ναι, παρακαλώ."}]},
+  {day:23,title:"Asking for help",items:[
+    {gr:"Μπορείς να με βοηθήσεις;",tr:"Borís na me voithíseis?",en:"Can you help me?"},
+    {gr:"Φυσικά",tr:"Fysiká",en:"Of course"}
+  ],dialog:[{a:"Μπορείς να με βοηθήσεις με αυτό;",b:"Φυσικά, πες μου."}]},
+  {day:24,title:"Describing things",items:[
+    {gr:"Μεγάλο",tr:"Megálo",en:"Big"},
+    {gr:"Μικρό",tr:"Mikrό",en:"Small"},
+    {gr:"Καινούριο",tr:"Kainoúrio",en:"New"}
+  ],dialog:[{a:"Το σπίτι είναι μεγάλο.",b:"Ναι, έχει τρεις κρεβατοκάμαρες."}]},
+  {day:25,title:"People & relationships",items:[
+    {gr:"Φίλος",tr:"Fílos",en:"Friend"},
+    {gr:"Γείτονας",tr:"Geítonas",en:"Neighbor"},
+    {gr:"Συγγενής",tr:"Syggenís",en:"Relative"}
+  ],dialog:[{a:"Αυτός είναι ο φίλος μου.",b:"Χαίρω πολύ."}]},
+  {day:26,title:"Talking about the past",items:[
+    {gr:"Χθες",tr:"Chthes",en:"Yesterday"},
+    {gr:"Προχθές",tr:"Prochthes",en:"Day before yesterday"},
+    {gr:"Ήμουν",tr:"Ímoun",en:"I was"}
+  ],dialog:[{a:"Τι έκανες χθες;",b:"Ήμουν με την οικογένεια."}]},
+  {day:27,title:"Future intentions",items:[
+    {gr:"Αύριο",tr:"Ávrio",en:"Tomorrow"},
+    {gr:"Θα...",tr:"Tha...",en:"Will..."},
+    {gr:"Θέλω να...",tr:"Thélo na...",en:"I want to..."}
+  ],dialog:[{a:"Τι θα κάνεις αύριο;",b:"Θα εργαστώ και μετά θα πάω σπίτι."}]},
+  {day:28,title:"Special occasions",items:[
+    {gr:"Γενέθλια",tr:"Genéthlia",en:"Birthday"},
+    {gr:"Γιορτή",tr:"Giortí",en:"Name day/celebration"},
+    {gr:"Καλή χρονιά",tr:"Kalí chroniá",en:"Happy new year"}
+  ],dialog:[{a:"Χρόνια πολλά!",b:"Ευχαριστώ πολύ!"}]},
+  {day:29,title:"Full review",items:[],dialog:[]},
+  {day:30,title:"Final recap & celebration",items:[],dialog:[]}
+];
+
+/* ====== APP UI ====== */
 const app = document.getElementById('app');
-function renderHome(){
+const lessonCard = document.getElementById('lessonCard');
+
+function renderHome() {
   app.innerHTML = '';
-  const card = document.createElement('div'); card.className='card';
-  card.innerHTML = `<div class="row"><div style="flex:1"><strong class="big">30-day plan</strong><div class="small">Tap a day to open a short 20-min lesson</div></div><button id="startBtn">Start Day 1</button></div>`;
+  const card = elt('div','card');
+  card.innerHTML = `<div class="row"><div style="flex:1"><strong class="big">30-day plan</strong><div class="small">Tap a day to open a short 20-min lesson</div></div><button id="startBtn" class="btn">Start Day 1</button></div>`;
   app.appendChild(card);
-  const list = document.createElement('div'); list.className='lesson-list';
-  lessons.forEach(l=>{
-    const it = document.createElement('div'); it.className='lesson-item';
+
+  const list = elt('div','lesson-list');
+  lessons.forEach(l => {
+    const it = elt('div','lesson-item');
     it.innerHTML = `<div><strong>Day ${l.day}</strong></div><div class="small">${l.title}</div><div class="small" style="margin-top:8px">Tap to open</div>`;
-    it.onclick = ()=>openLesson(l.day);
+    it.onclick = () => openLesson(l.day);
     list.appendChild(it);
   });
   app.appendChild(list);
-  document.getElementById('startBtn').onclick = ()=>openLesson(1);
+
+  document.getElementById('startBtn').onclick = () => openLesson(1);
 }
 
-function openLesson(day){
-  const l = lessons.find(x=>x.day===day);
-  const LC = document.getElementById('lessonCard');
-  LC.style.display='block'; LC.innerHTML='';
-  const header = document.createElement('div'); header.className='row';
-  header.innerHTML = `<div style="flex:1"><strong>Day ${l.day} — ${l.title || 'Review'}</strong><div class="small">~20 minutes</div></div><div><button id="close">Home</button></div>`;
-  LC.appendChild(header);
-  document.getElementById('close').onclick = ()=>{LC.style.display='none'};
-  if(l.items && l.items.length){
-    const vcard = document.createElement('div'); vcard.className='card';
-    vcard.innerHTML = `<div class="small">Vocabulary</div><div class="vocab-list" id="vocab${day}"></div>`;
-    LC.appendChild(vcard);
+function openLesson(day) {
+  const l = lessons.find(x => x.day === day);
+  lessonCard.classList.remove('hidden');
+  lessonCard.innerHTML = '';
+  const header = elt('div','row');
+  header.innerHTML = `<div style="flex:1"><strong>Day ${l.day} — ${l.title || 'Review'}</strong><div class="small">~20 minutes (10 vocab / 8 dialog / 5 quiz)</div></div><div><button id="closeBtn" class="btn">Home</button></div>`;
+  lessonCard.appendChild(header);
+  document.getElementById('closeBtn').onclick = () => { lessonCard.classList.add('hidden'); lessonCard.innerHTML=''; };
+
+  // Vocabulary
+  if (l.items && l.items.length) {
+    const vcard = elt('div','card');
+    vcard.innerHTML = `<div class="small">Vocabulary (${l.items.length})</div><div class="vocab-list" id="vocab${day}"></div>`;
+    lessonCard.appendChild(vcard);
     const listEl = vcard.querySelector('#vocab'+day);
-    l.items.forEach(it=>{
-      const ve = document.createElement('div'); ve.className='vocab row';
+    l.items.forEach(it => {
+      const ve = elt('div','vocab');
       ve.innerHTML = `<div style="flex:1"><div style="font-weight:700">${it.gr}</div><div class="small">${it.tr} — ${it.en}</div></div><button class="play">🔊</button>`;
       listEl.appendChild(ve);
-      ve.querySelector('.play').onclick = ()=>speak(it.gr);
+      ve.querySelector('.play').onclick = () => speak(it.gr);
+      ve.onclick = (e) => { if(e.target.className !== 'play') showExample(it); };
     });
   }
-  if(l.dialog && l.dialog.length){
-    const dcard = document.createElement('div'); dcard.className='card';
+
+  // Dialogue
+  if (l.dialog && l.dialog.length) {
+    const dcard = elt('div','card');
     dcard.innerHTML = `<div class="small">Dialogue practice</div>`;
-    LC.appendChild(dcard);
-    l.dialog.forEach(d=>{
-      const p = document.createElement('div'); p.className='card'; p.innerHTML = `<div><strong>Person A:</strong> ${d.a}</div><div style="margin-top:6px"><strong>Person B:</strong> ${d.b}</div><div class="row" style="margin-top:8px"><button class="play">Play dialogue</button><button id="rec-${Math.random().toString(36).slice(2)}" style="margin-left:8px">Record & playback</button></div>`;
+    lessonCard.appendChild(dcard);
+    l.dialog.forEach((d, idx) => {
+      const p = elt('div','dialog-card');
+      p.innerHTML = `<div><strong>Person A:</strong> ${d.a}</div><div style="margin-top:6px"><strong>Person B:</strong> ${d.b}</div>
+        <div class="row" style="margin-top:8px">
+          <button class="play" id="play-${day}-${idx}">Play dialogue</button>
+          <button class="btn" id="rec-${day}-${idx}" style="margin-left:8px">Record & playback</button>
+        </div>`;
       dcard.appendChild(p);
-      p.querySelector('.play').onclick = ()=>{speak(d.a); setTimeout(()=>speak(d.b),1500)};
+      document.getElementById(`play-${day}-${idx}`).onclick = () => { speak(d.a); setTimeout(()=>speak(d.b),1400); };
+      // Record & playback: simple browser recording
+      document.getElementById(`rec-${day}-${idx}`).onclick = () => recordAndPlay(d.a + ' ' + d.b);
     });
   }
-  const qcard = document.createElement('div'); qcard.className='card'; qcard.innerHTML = `<div class="small">Quick 5-question quiz (typing or matching)</div><div id="quizArea"></div><div style="margin-top:8px"><button id="check">Check answers</button></div><div class="small" id="score"></div>`;
-  LC.appendChild(qcard);
-  buildQuiz(l,qcard.querySelector('#quizArea'));
+
+  // Quick quiz
+  const qcard = elt('div','card');
+  qcard.innerHTML = `<div class="small">Quick 5-question quiz (type the English translation)</div><div id="quizArea"></div><div style="margin-top:8px"><button id="check" class="btn">Check answers</button> <button id="next-day" class="btn" style="margin-left:8px">Next day</button></div><div class="small" id="score" style="margin-top:8px"></div>`;
+  lessonCard.appendChild(qcard);
+  buildQuiz(l, qcard.querySelector('#quizArea'));
+  document.getElementById('check').onclick = () => {
+    const inputs = qcard.querySelectorAll('input');
+    let score = 0;
+    inputs.forEach(inp => {
+      const ans = inp.getAttribute('data-answer').toLowerCase().trim();
+      const val = (inp.value||'').toLowerCase().trim();
+      if (!ans) return;
+      if (val && (val === ans || ans.includes(val) || val.includes(ans))) score++;
+    });
+    qcard.querySelector('#score').innerText = `Score: ${score}/${inputs.length}`;
+  };
+  document.getElementById('next-day').onclick = () => {
+    const next = Math.min(30, day+1);
+    openLesson(next);
+    window.scrollTo(0,0);
+  };
+
+  // Navigation: prev/next buttons at bottom
+  const nav = elt('div','nav-row');
+  const prevBtn = elt('button','btn'); prevBtn.innerText = 'Prev'; prevBtn.onclick = () => openLesson(Math.max(1,day-1));
+  const homeBtn = elt('button','btn'); homeBtn.innerText = 'Home'; homeBtn.onclick = () => { lessonCard.classList.add('hidden'); lessonCard.innerHTML=''; };
+  const nextBtn = elt('button','btn'); nextBtn.innerText = 'Next'; nextBtn.onclick = () => openLesson(Math.min(30,day+1));
+  nav.appendChild(prevBtn); nav.appendChild(homeBtn); nav.appendChild(nextBtn);
+  lessonCard.appendChild(nav);
 }
 
-function buildQuiz(lesson,container){
-  container.innerHTML='';
+function buildQuiz(lesson, container) {
+  container.innerHTML = '';
   const items = lesson.items || [];
-  for(let i=0;i<5;i++){
-    const it = items[i % (items.length||1)];
-    const qi = document.createElement('div'); qi.className='quiz-item';
-    qi.innerHTML = `<div class="small">Translate to English: <strong>${it ? it.gr : '—'}</strong></div><input type="text" data-answer="${it?escapeHtml(it.en):''}" />`;
+  for (let i=0;i<5;i++){
+    const it = items[i % (items.length || 1)];
+    const qi = elt('div');
+    qi.className = 'small';
+    const ans = it ? it.en : '';
+    qi.innerHTML = `<div style="margin-top:8px">Translate to English: <strong>${it ? it.gr : '—'}</strong></div><input type="text" data-answer="${escapeHtml(ans)}" />`;
     container.appendChild(qi);
   }
-  container.parentElement.querySelector('#check').onclick = ()=>{
-    const inputs = container.querySelectorAll('input'); let score=0; inputs.forEach(inp=>{
-      const ans = inp.getAttribute('data-answer').toLowerCase(); if(inp.value.trim().toLowerCase().includes(ans) || ans.includes(inp.value.trim().toLowerCase())) score++;
-    });
-    container.parentElement.querySelector('#score').innerText = `Score: ${score}/5`;
-  }
 }
 
-function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function showExample(item) {
+  // small modal-like temporary popup (alert fallback)
+  const txt = `${item.gr} — ${item.tr}\nMeaning: ${item.en}`;
+  if (confirm(`${txt}\n\nPress OK to hear it.`)) speak(item.gr);
+}
 
 function speak(text){
   if('speechSynthesis' in window){
     const ut = new SpeechSynthesisUtterance(text);
     ut.lang = 'el-GR';
+    // attempt to choose a Greek voice if available
     const voices = speechSynthesis.getVoices();
-    const g = voices.find(v=>v.lang && v.lang.startsWith('el'));
-    if(g) ut.voice = g;
-    speechSynthesis.cancel(); speechSynthesis.speak(ut);
-  } else alert('TTS not supported in this browser.');
+    const greek = voices.find(v => v.lang && v.lang.startsWith('el'));
+    if (greek) ut.voice = greek;
+    // fallback: set a sensible rate for clarity
+    ut.rate = 0.95;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(ut);
+  } else {
+    alert('TTS not supported in this browser.');
+  }
 }
 
+/* recording helper: uses MediaRecorder if available, otherwise plays phrase with TTS */
+async function recordAndPlay(text) {
+  if (!navigator.mediaDevices || !window.MediaRecorder) {
+    // simple fallback: play the lines with TTS
+    speak(text);
+    return;
+  }
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    const recorder = new MediaRecorder(stream);
+    const chunks = [];
+    recorder.ondataavailable = e => chunks.push(e.data);
+    recorder.onstop = async () => {
+      const blob = new Blob(chunks, {type:'audio/webm'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('audio');
+      a.src = url; a.controls = true; a.autoplay = true;
+      // small user-notice
+      alert('Playing your recording now. Press OK to hear the original phrase.');
+      speak(text);
+      // release
+      setTimeout(()=>{ URL.revokeObjectURL(url); if(stream) stream.getTracks().forEach(t=>t.stop()); }, 60000);
+    };
+    alert('Press OK to start 5-second recording; speak after the beep.');
+    recorder.start();
+    // beep
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = ctx.createOscillator(); o.type='sine'; o.frequency.value=880;
+    const g = ctx.createGain(); g.gain.value = 0.00001;
+    o.connect(g); g.connect(ctx.destination);
+    g.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + 0.01);
+    o.start();
+    setTimeout(()=>{ g.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.1); o.stop(); }, 120);
+    await wait(5000);
+    recorder.stop();
+  } catch (e) {
+    console.error(e);
+    alert('Recording failed or permission denied. Playing phrase instead.');
+    speak(text);
+  }
+}
+
+/* helpers */
+function elt(tag, cls){ const e = document.createElement(tag); if (cls) e.className = cls; return e; }
+function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function wait(ms){ return new Promise(res=>setTimeout(res, ms)); }
+
+/* init */
 renderHome();
 
 </script>
-
-<script>
-document.getElementById("start-day1").addEventListener("click", function() {
-  document.getElementById("content").innerHTML = `
-    <h2>Day 1 – Greetings in Greek</h2>
-    <p><b>Hello</b> – Γεια σου (Ya sou)</p>
-    <p><b>Good morning</b> – Καλημέρα (Kaliméra)</p>
-    <p><b>Good evening</b> – Καλησπέρα (Kalispéra)</p>
-    <p><b>Good night</b> – Καληνύχτα (Kaliníkhta)</p>
-    <button id="go-back">Back to Home</button>
-  `;
-
-  document.getElementById("go-back").addEventListener("click", function() {
-    location.reload();
-  });
-});
-</script>
-</body></html>
+</body>
+</html>
