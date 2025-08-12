@@ -154,5 +154,20 @@ renderHome();
 
 </script>
 
+<script>
+document.getElementById("start-day1").addEventListener("click", function() {
+  document.getElementById("content").innerHTML = `
+    <h2>Day 1 – Greetings in Greek</h2>
+    <p><b>Hello</b> – Γεια σου (Ya sou)</p>
+    <p><b>Good morning</b> – Καλημέρα (Kaliméra)</p>
+    <p><b>Good evening</b> – Καλησπέρα (Kalispéra)</p>
+    <p><b>Good night</b> – Καληνύχτα (Kaliníkhta)</p>
+    <button id="go-back">Back to Home</button>
+  `;
 
+  document.getElementById("go-back").addEventListener("click", function() {
+    location.reload();
+  });
+});
+</script>
 </body></html>
